@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
-<c:if test="${!empty userInfo}">
+<%-- <c:if test="${!empty userInfo}">
 	<script>
 	alert("로그아웃 상태에서 볼 수 있는 페이지입니다.");
 	location.href = "${root}/index.jsp";
 	</script>
-</c:if>
+</c:if> --%>
 <script type="text/javascript">
         $(document).ready(function () {
+        	//
 			$("#registerBtn").attr("disabled","disabled");
                     		
         	var isId = false;
@@ -41,6 +42,25 @@
         		}
 			});
         	
+        	// 이름 아이디 비밀번호 입력 안하면 
+            $("#registerBtn").click(function () {
+                if (!$("#username").val()) {
+                    alert("이름 입력!!!");
+                    return;
+                } else if (!isId) {
+                    alert("아이디 확인!!!");
+                    return;
+                } else if (!$("#userpwd").val()) {
+                    alert("비밀번호 입력!!!");
+                    return;
+                } else if ($("#userpwd").val() != $("#pwdcheck").val()) {
+                    alert("비밀번호 확인!!!");
+                    return;
+                } else {
+                	$("#email").val($("#emailid").val() + "@" + $("#emaildomain").val());
+                    $("#memberform").attr("action", "${root}/user/register").submit();
+                }
+            });
         	// 회원가입
             $("#registerBtn").click(function () {
                 $("#memberform").attr("action", "${root}/user").submit();

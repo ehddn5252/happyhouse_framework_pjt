@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>    
-<c:if test="${!empty userInfo}">
+<%-- <c:if test="${!empty userInfo}">
 	<script>
 	alert("로그아웃 상태에서 볼 수 있는 페이지입니다.");
 	location.href = "${root}/index.jsp";
 	</script>
-</c:if>
+</c:if> --%>
 <script type="text/javascript">
         $(document).ready(function () {
 			

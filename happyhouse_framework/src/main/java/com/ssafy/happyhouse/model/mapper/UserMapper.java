@@ -1,11 +1,14 @@
-package com.ssafy.happyhouse.model.service;
+package com.ssafy.happyhouse.model.mapper;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.ssafy.happyhouse.model.UserDto;
 
-public interface UserService {
-
+@Mapper
+public interface UserMapper {
+	
 	// 중복확인
 	int idCheck(String id) throws Exception;
 	// 회원가입
@@ -24,5 +27,4 @@ public interface UserService {
 //	List<UserDto> searchAll(ListParameterDto listParameterDto) throws Exception;
 //	// 총 회원 수
 //	int getTotalCount(ListParameterDto listParameterDto) throws Exception;
-	
 }
