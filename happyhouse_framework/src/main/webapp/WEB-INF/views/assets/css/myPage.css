@@ -1,0 +1,63 @@
+/* s */
+
+.myPage-check-container th {
+  /* border: 1px solid #444444; */
+  padding: 20px;
+  text-align: right;
+}
+#info-delete-btn:hover {
+  background-color: transparent;
+  border: 1px red solid;
+  color: red;
+}
+#info-delete-btn {
+  background-color: rgb(231, 42, 0);
+  color: white;
+}
+
+#info-check-btn:hover,
+#info-modify-btn:hover {
+  border: 1px #50a3a2 solid;
+  background-color: transparent;
+  color: #50a3a2;
+}
+
+#info-check-btn,
+#info-modify-btn {
+  background-color: #50a3a2;
+  color: white;
+}
+
+.myPage-check-container th::after {
+  content: " *";
+  color: red;
+}
+table input {
+  width: 100%;
+  padding: 5px;
+}
+
+.myPage-check-container .btn-box {
+  margin-top: 30px;
+}
+
+.myPage-check-container .btn-box button {
+  /* display: block; */
+  width: 100px;
+  height: 40px;
+  color: #f1f1f1;
+  background: rgb(0, 152, 212);
+  background-size: 150%;
+  outline: none;
+  cursor: pointer;
+  transition: 0.5s;
+  border: none;
+  margin: 15px;
+  border-radius: 5px;
+}
+
+.form button:hover,
+.form button:active,
+.form button:focus {
+  background: #50a3a2;
+}
