@@ -71,13 +71,13 @@
     ></a>
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/purecounter/purecounter.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="${root}/assets/vendor/purecounter/purecounter.js"></script>
+    <script src="${root}/assets/vendor/aos/aos.js"></script>
+    <script src="${root}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${root}/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="${root}/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="${root}/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="${root}/assets/vendor/php-email-form/validate.js"></script>
 
 <!--     <script
       type="text/javascript"
@@ -85,15 +85,15 @@
     ></script> -->
     <!-- Template Main JS File -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdf614748efadd63bf7ce73b5ddad4f1&libraries=services"></script>
-    <script src="assets/js/test2.js"></script>
-   <script src="assets/js/store.js"></script>
-    <script src="assets/js/hangjungdong.js"></script>
-    <script src="assets/js/interest.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/myPage.js"></script>
-    <script src="assets/js/notice.js"></script>
-    <script src="assets/js/register.js"></script>
-    <script src="assets/js/registerInterest.js"></script>
-    <script src="assets/js/transaction.js"></script>
+    <script src="${root}/assets/js/test2.js"></script>
+    <script src="${root}/assets/js/store.js"></script>
+    <script src="${root}/assets/js/hangjungdong.js"></script>
+    <script src="${root}/assets/js/interest.js"></script>
+    <script src="${root}/assets/js/main.js"></script>
+    <script src="${root}/assets/js/myPage.js"></script>
+    <script src="${root}/assets/js/notice.js"></script>
+    <script src="${root}/assets/js/register.js"></script>
+    <script src="${root}/assets/js/registerInterest.js"></script>
+    <script src="${root}/assets/js/transaction.js"></script>
   </body>
 </html>

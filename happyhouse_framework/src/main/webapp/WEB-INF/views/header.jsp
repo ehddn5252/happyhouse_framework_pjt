@@ -13,8 +13,8 @@
 
 
     <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon" />
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+    <link href="${root}/assets/img/favicon.png" rel="icon" />
+    <link href="${root}/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
 
     <!-- Google Fonts -->
     <link
@@ -23,23 +23,23 @@
     />
 
     <!-- Vendor CSS Files -->
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="${root}/assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="${root}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="${root}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="${root}/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="${root}/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="${root}/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/custom.css" rel="stylesheet" />
-    <link href="assets/css/interest.css" rel="stylesheet" />
-    <link href="assets/css/listMap.css" rel="stylesheet" />
-    <link href="assets/css/myPage.css" rel="stylesheet" />
-    <link href="assets/css/notice.css" rel="stylesheet" />
-    <link href="assets/css/register.css" rel="stylesheet" />
-    <link href="assets/css/registerInterest.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/transaction.css" rel="stylesheet" />
+    <link href="${root}/assets/css/custom.css" rel="stylesheet" />
+    <link href="${root}/assets/css/interest.css" rel="stylesheet" />
+    <link href="${root}/assets/css/listMap.css" rel="stylesheet" />
+    <link href="${root}/assets/css/myPage.css" rel="stylesheet" />
+    <link href="${root}/assets/css/notice.css" rel="stylesheet" />
+    <link href="${root}/assets/css/register.css" rel="stylesheet" />
+    <link href="${root}/assets/css/registerInterest.css" rel="stylesheet" />
+    <link href="${root}/assets/css/style.css" rel="stylesheet" />
+    <link href="${root}/assets/css/transaction.css" rel="stylesheet" />
 
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -106,7 +106,7 @@
 		});
 	</script>
 	
-	<c:if test="${empty userInfo}">
+	<c:if test="${!empty userInfo}">
 			<script>
 			$(document).ready(function () {
 		    $(".loginOnly").addClass("d-none");
@@ -114,7 +114,7 @@
 			});
 		    </script>
 	</c:if>
-	<c:if test="${!empty userInfo}">
+	<c:if test="${empty userInfo}">
 		<script>
 		$(document).ready(function () {
 		    $(".loginOnly").removeClass("d-none");
@@ -141,7 +141,7 @@
             >
           </h1>
           <!-- Uncomment below if you prefer to use an image logo -->
-          <!-- <a href="index.jsp"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+          <!-- <a href="index.jsp"><img src="${root}/assets//img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
 
         <nav id="navbar" class="navbar order-last order-lg-0">
@@ -168,7 +168,7 @@
                 <li><a href="main?act=store&cmd=mvInterest">관심 지역 목록</a></li>
                 <li><a href="interest?act=mvAddInterest">관심 지역 등록</a></li>
                 <li><a href="main?act=store&cmd=mvStore">주변탐방 업종 정보 조회</a></li>
-                <li><a href="main?act=env&cmd=mvEnv">주변환경 정보 조회</a></li>
+                <li><a href="interest/env">주변환경 정보 조회</a></li>
               </ul>
             </li>
           </ul>
