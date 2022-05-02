@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.UserMapper">
+
+	<select id="idCheck" parameterType="String" resultType="int">
+		select count(userid)
+		from user
+		where userId = #{userId}
+	</select>
+	
+	<insert id="register" parameterType="UserDto">
+		insert into user
+		values (#{userId},#{userPwd},#{userName},#{userBirth},#{userGender},#{userEmail},#{registDate},#{manager},#{phoneNum})
+	</insert>
+	
+	<update id="updateUser" parameterType="UserDto">
+		update user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userPwd != null">userPwd = #{userPwd},</if>
+			<if test="phoneNum != null">phoneNum = #{phoneNum},</if>
+			<if test="userName != null">userName = #{userName},</if>
+			<if test="userEmail != null">userEmail = #{userEmail},</if>
+		</trim>
+		where userId = #{userId}
+	</update>
+	
+	<delete id="deleteUser" parameterType="string">
+		delete from user 
+		where userId = #{userId}
+	</delete>
+	
+	<select id="searchById" parameterType="string">
+		select userId, userPassword, userEmail, userName, 
+		date_format(userBirth, '%Y-%m-%d') userBirth, userGender, date_format(registDate, '%Y-%m-%d') registDate, manager, phoneNum 
+		from user
+		where userId = #{userId}
+	</select>
+	
+	<select id="searchPwdById" parameterType="string">
+		select userPassword		
+		from user
+		where userId = #{userId}
+	</select>
+	
+	<select id="login" parameterType="map" resultType="UserDto">
+		select userId, userName, manager 	
+		from user
+		where userId = #{userId} and userPassword = #{userPwd}
+	</select>
+	
+	
+	
+</mapper>

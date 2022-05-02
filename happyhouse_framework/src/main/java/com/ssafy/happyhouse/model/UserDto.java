@@ -13,7 +13,7 @@ public class UserDto {
 	private String userGender;
 	private String registDate;
 	private String manager;
-	private String userPhoneNum;
+	private String phoneNum;
 
 	public String getUserGender() {
 		return userGender;
@@ -92,18 +92,13 @@ public class UserDto {
 	}
 
 	public String getUserPhoneNum() {
-		return userPhoneNum;
+		return phoneNum;
 	}
 	
 	
 	public void setUserPhoneNum(String phoneNum) {
-		this.userPhoneNum = phoneNum;
+		this.phoneNum = phoneNum;
 	}
 
-	@Override
-	public String toString() {
-		return userId + "\t" + userPwd + "\t" + userName + "\t"  + userBirth + "\t" + userGender
-				+ "\t" + userEmail+ "\t" + registDate;
-	}
 
 }
