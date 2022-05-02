@@ -1,5 +1,6 @@
 package com.ssafy.happyhouse.controller;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -14,12 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ssafy.happyhouse.model.UserDto;
 import com.ssafy.happyhouse.model.service.UserService;
@@ -40,9 +42,11 @@ public class userMain  {
 	
 	@PostMapping("/register")
 	public String register(UserDto userDto, Model model) throws Exception {
+		userDto.setManager("user");
+		userDto.setRegistDate(LocalDate.now().toString());
 		logger.debug("userDto info : {}", userDto);
 		userService.register(userDto);
-		return "redirect:/user/login";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/idcheck")
@@ -55,25 +59,25 @@ public class userMain  {
 	
 	
 	@PostMapping("/login")
-	public String login(@RequestParam Map<String, String> map, Model model, HttpSession session,
+	public @ResponseBody String login(@RequestParam Map<String, String> map, Model model, HttpSession session,
 			HttpServletResponse response) throws Exception {
-		logger.debug("map : {}", map.get("userId"));
+		logger.debug("map : {}", map);
 		UserDto UserDto = userService.login(map);
 		if (UserDto != null) {
-			session.setAttribute("userinfo", UserDto);
+			session.setAttribute("userInfo", UserDto);
 
 			Cookie cookie = new Cookie("ssafy_id", map.get("userId"));
 			cookie.setPath("/");
-			if ("saveok".equals(map.get("idsave"))) {
+			if ("true".equals(map.get("idsave"))) {
 				cookie.setMaxAge(60 * 60 * 24 * 365 * 40);
 			} else {
 				cookie.setMaxAge(0);
 			}
 			response.addCookie(cookie);
-			return "redirect:/";
+			return "1";
 		} else {
 			model.addAttribute("msg", "아이디 또는 비밀번호 확인 후 다시 로그인하세요!");
-			return "user/login";
+			return "0";
 		}
 	}
 	
@@ -85,13 +89,13 @@ public class userMain  {
 	}
 	
 	// 마이페이지로 이동
-	@PostMapping("/userinfo")
-	public ModelAndView userinfo(String userId) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		UserDto UserDto = userService.searchById(userId);
-		mav.addObject("userDto", UserDto);
-		mav.setViewName("register");
-		return mav;
+	@GetMapping("/userinfo")
+	public String userinfo() throws Exception {
+//		ModelAndView mav = new ModelAndView();
+//		UserDto UserDto = userService.searchById(userId);
+//		mav.addObject("userDto", UserDto);
+//		mav.setViewName();
+		return "myPage";
 	}
 	
 	
@@ -109,30 +113,42 @@ public class userMain  {
 	}
 	
 	// 마이페이지로 이동
-	@DeleteMapping(value = "/user/{userid}")
-	public String userDelete(@RequestBody String userId, HttpSession session) throws Exception {
+	@DeleteMapping(value = "/delete/{userId}")
+	public @ResponseBody String userDelete(@PathVariable String userId, HttpSession session) throws Exception {
+		logger.debug("[delete] userId info : {}", userId);
 		userService.deleteUser(userId);
 		session.invalidate();
-		return "redirect:/";
+		
+		JSONObject json = new JSONObject();
+		json.put("status", "성공적으로 삭제.");
+		return json.toString();
 	}
 	
+	@PutMapping(value = "/modify")
+	public @ResponseBody String userModify(@RequestBody UserDto userDto, HttpSession session) throws Exception {
+		System.out.println("수정");
+		logger.debug("[modify] userDto info : {}", userDto.toString());
+		userService.updateUser(userDto);
+		session.setAttribute("userInfo", userDto);
+		
+		JSONObject json = new JSONObject();
+		json.put("status", "성공적으로 변경했습니다");
+		System.out.println("변경성공");
+		return json.toString();
+	}
 	
+	@PostMapping(value = "/findpwd/{userId}")
+	public @ResponseBody String searchPwdById(@PathVariable String userId) throws Exception {
+		logger.debug("[delete] userId info : {}", userId);
+		String userPwd=userService.searchPwdById(userId);
+		JSONObject json = new JSONObject();
+		if (userPwd==null) {
+			json.put("msg", "해당 회원이 존재하지 않습니다.");
+		} else {
+			json.put("msg", userId+"님의 비밀번호는 "+userPwd+"입니다.");
+		}
+		return json.toString();
+	}
 	
-//	@ApiOperation(value = "회원정보수정", notes = "회원정보를 수정합니다.")
-//	@PutMapping(value = "/user")
-//	public ResponseEntity<?> userModify(@RequestBody UserDto userDto) {
-//		try {
-//			userService.updateUser(userDto);
-//			return new ResponseEntity<List<UserDto>>(list, HttpStatus.OK);
-//		} catch (Exception e) {
-//			return exceptionHandling(e);
-//		}
-//	}
-	
-	
-//	private ResponseEntity<String> exceptionHandling(Exception e) {
-//		e.printStackTrace();
-//		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
 
 }
