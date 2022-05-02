@@ -17,7 +17,7 @@ public interface UserService {
 	// 회원정보 수정
 	void updateUser(UserDto userDto) throws Exception;
 	// 회원 정보 조회
-	UserDto searchById(String userId) throws Exception;
+	/* UserDto searchById(String userId) throws Exception; */
 	// 아이디로 비번 찾기
 	String searchPwdById(String userId) throws Exception;
 //	// 전체 회원 데이터 출력

@@ -41,10 +41,10 @@ public class UserServiceImpl implements UserService {
 		userMapper.deleteUser(id);
 	}
 
-	@Override
-	public UserDto searchById(String id) throws Exception {
-		return userMapper.searchById(id);
-	}
+	/*
+	 * @Override public UserDto searchById(String id) throws Exception { return
+	 * userMapper.searchById(id); }
+	 */
 	
 	@Override
 	public String searchPwdById(String id) throws Exception {

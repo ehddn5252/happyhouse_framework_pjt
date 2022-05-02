@@ -8,20 +8,42 @@
 	</script>
 </c:if> --%>
 <script type="text/javascript">
+
         $(document).ready(function () {
+        	$("#findPwd-btn").attr("disabled","disabled");
+        	
+        	var findPossible = false;
+        	$("#msg").text("아이디를 입력하세요").removeClass('text-primary').removeClass('text-danger').addClass('text-dark');
+
+       		$("#findPwd-id").keyup(function () {
+	        	var findId = $("#findPwd-id").val();
+               	if(findId.length > 0) {
+               		findPossible = true;
+               		$("#findPwd-btn").removeAttr("disabled");
+               		$("#msg").text("");
+               	} else {
+               		findPossible = false;
+               		$("#findPwd-btn").attr("disabled","disabled");
+               		$("#msg").text("아이디를 입력하세요").removeClass('text-primary').removeClass('text-danger').addClass('text-dark');
+               	}
+       		});
+        	
 			
         	// 비밀번호 찾기
         	$("#findPwd-btn").click(function () {
-        			var userid = $("#findPwd-id").val();
+        			var userId = $("#findPwd-id").val();
+        			let deleteinfo = JSON.stringify({
+        				'userId': userId
+    				   });
 	                $.ajax({
-	                	url: '${root}/user',
-	                	data: {'act': 'findpwd', 'userid': userid},
-	                  	type: 'GET',
-	                  	dataType: 'text',
-	                  	contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	                	url: '${root}/user/findpwd/'+userId,
+	                  	type: 'Post',
+	                  	contentType: 'application/json;charset=utf-8',
+	                  	dataType: 'json',
+	                	data: deleteinfo,
 	                  	success: function (response) {
 	                  		console.log(response);
-	                    	$("#msg").text(response).removeClass('text-dark');
+	                    	$("#msg").text(response.msg).removeClass('text-dark');
 	                  	},
 	                  	error: function (error) {
 	                  		request.setAttribute("msg", "글목록 얻기중 에러가 발생했습니다.");
@@ -53,8 +75,11 @@
           <div class="signup-form">
             <form name="register-form" class="register-form">
               <input id="findPwd-id" name="id" type="text" placeholder="id" />
-
-              <button id="findPwd-btn" class="findPwd-btn" type="button">비밀번호 찾기</button>
+				
+				<div class="button">
+	              <input type="button" id="findPwd-btn" class="findPwd-btn" value="비밀번호 찾기">
+				
+				</div>
 	            <div id="msg" class="mt-2">
 	              <!-- 패스워드 출력될 곳 -->
 	            </div>
