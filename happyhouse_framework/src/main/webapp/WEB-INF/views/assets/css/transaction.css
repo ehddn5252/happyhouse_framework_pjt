@@ -1,0 +1,39 @@
+.search-form {
+  display: block;
+}
+
+.search-element {
+  display: inline-block;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: black;
+}
+
+#aptinfo {
+  /* width: calc(50%); */
+  width: 500px;
+  height: 700px;
+  position: relative;
+  display: inline-block;
+  color: black;
+}
+
+.apart_list_title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2f4d5a;
+}
+
+#map {
+  width: 500px;
+  width: calc(60%);
+  height: 500px;
+  left: 30px;
+  position: relative;
+}
+
+.search-element::after {
+  content: " *";
+  color: red;
+  margin-right: 5px;
+}
