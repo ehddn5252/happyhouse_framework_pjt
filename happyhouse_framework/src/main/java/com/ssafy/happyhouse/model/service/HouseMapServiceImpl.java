@@ -34,5 +34,9 @@ public class HouseMapServiceImpl implements HouseMapService {
 	public List<HouseInfoDto> getAptInDong(String dong) throws Exception {
 		return houseMapMapper.getAptInDong(dong);
 	}
-
+	
+	@Override
+	public List<HouseInfoDto> getAptInName(String aptName,String dong) throws Exception {
+		return houseMapMapper.getAptInName(aptName,dong);
+	}
 }
