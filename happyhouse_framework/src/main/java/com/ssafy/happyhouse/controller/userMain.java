@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 package com.ssafy.controller;
+=======
+package com.ssafy.happyhouse.controller;
+>>>>>>> 47a06e094dd4904cc223c58ed290809fb02e457c
 
 import java.io.IOException;
 import java.time.LocalDate;
