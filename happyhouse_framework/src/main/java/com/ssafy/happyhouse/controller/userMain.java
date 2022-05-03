@@ -129,7 +129,10 @@ public class userMain  {
 		System.out.println("수정");
 		logger.debug("[modify] userDto info : {}", userDto.toString());
 		userService.updateUser(userDto);
-		session.setAttribute("userInfo", userDto);
+		
+		if (userDto.getUserPwd()==null) {
+			session.setAttribute("userInfo", userDto);
+		}
 		
 		JSONObject json = new JSONObject();
 		json.put("status", "성공적으로 변경했습니다");
