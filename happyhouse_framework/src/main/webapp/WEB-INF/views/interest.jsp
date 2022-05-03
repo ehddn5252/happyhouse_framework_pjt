@@ -3,12 +3,13 @@
 
 <%@ include file="header.jsp"%>
 
-<%-- <c:if test="${empty userInfo}">
+<c:if test="${!empty userInfo}">
    <script>
-   alert("로그인 상태에서 볼 수 있는 페이지입니다.");
-   location.href = "${root}/index.jsp";
+   var userid = ${userInfo.userId};
+/*    alert("로그인 상태에서 볼 수 있는 페이지입니다.");
+   location.href = "${root}/index.jsp"; */
    </script>
-</c:if> --%>
+</c:if>
 <main id="main"> <!-- ======= Breadcrumbs Section ======= -->
 <section class="breadcrumbs">
 	<div class="container">
@@ -55,16 +56,17 @@
 		<div class="col-sm-7">
 			<div id="map" style="width: 80%; height: 500px"></div>
 		</div>
-	</div>s
+	</div>
 </div>
 <!-- End Portfolio Details Section -->
 </main>
 
 <!-- End #main -->
-<%@ include file="footer.jsp" %>
+<%@ include file="footer.jsp" %>s
 
 <!-- 연의 추가 관심 지역 리스트 script -->
 <script>
+
 $(function(){
 		$(document).on('click',".envBtn", function(){
 			var code = $(this).attr("id");
