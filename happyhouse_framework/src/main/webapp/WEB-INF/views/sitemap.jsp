@@ -32,7 +32,7 @@
                 <!--Card image-->
                 <div class="view view-cascade py-3 gradient-card-header info-color">
                   <h5 class="mb-0">
-                    <a class="text-white" href="register.html" target="_blank">회원가입</a>
+                    <a class="text-white" href="/register" target="_blank">회원가입</a>
                   </h5>
                 </div>
                 <!--/Card image-->
@@ -48,7 +48,7 @@
                 <!--Card image-->
                 <div class="view view-cascade py-3 gradient-card-header info-color">
                   <h5 class="mb-0">
-                    <a class="text-white" href="myPage.html" target="_blank">마이페이지</a>
+                    <a class="text-white" href="/userinfo" target="_blank">마이페이지</a>
                   </h5>
                 </div>
                 <!--/Card image-->
@@ -72,16 +72,16 @@
                 <!--Card content-->
                 <div class="card-body card-body-cascade">
                   <ul class="divided-list list-unstyled text-center">
-                    <li><i class="bx bx-chevron-right"></i> <a href="index.html#hero">Home</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
                     <li>
                       <i class="bx bx-chevron-right"></i>
-                      <a href="index.html#services">회사 소개</a>
+                      <a href="/WEB-INF/views/index.jsp#services">회사 소개</a>
                     </li>
                     <li>
-                      <i class="bx bx-chevron-right"></i> <a href="index.html#contact">고객센터</a>
+                      <i class="bx bx-chevron-right"></i> <a href="/WEB-INF/views/index.jsp#contact">고객센터</a>
                     </li>
-                    <li><i class="bx bx-chevron-right"></i> <a href="notice.html">공지사항</a></li>
-                    <li><i class="bx bx-chevron-right"></i> <a href="sitemap.html">사이트맵</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="/notice">공지사항</a></li>
+                    <li><i class="bx bx-chevron-right"></i> <a href="/sitemap">사이트맵</a></li>
                   </ul>
                 </div>
                 <!--/.Card content-->
@@ -105,19 +105,19 @@
                   <ul class="divided-list list-unstyled text-center">
                     <li>
                       <i class="bx bx-chevron-right"></i>
-                      <a href="findTransaction.html">주택 실거래가 조회</a>
+                      <a href="/apart">주택 실거래가 조회</a>
                     </li>
                     <li>
                       <i class="bx bx-chevron-right"></i>
-                      <a href="registerInterest.html">관심 지역 등록</a>
+                      <a href="/interest/register">관심 지역 등록</a>
                     </li>
                     <li>
                       <i class="bx bx-chevron-right"></i>
-                      <a href="interest.html">주변탐방 업종 정보 조회</a>
+                      <a href="/interestinfo/store">주변탐방 업종 정보 조회</a>
                     </li>
                     <li>
                       <i class="bx bx-chevron-right"></i>
-                      <a href="findHospital.html">안심병원 조회</a>
+                      <a href="/interestinfo/env">주변환경 정보 조회</a>
                     </li>
                   </ul>
                 </div>

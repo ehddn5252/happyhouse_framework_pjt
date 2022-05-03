@@ -10,4 +10,8 @@ public class MainController {
    public String index() {
       return "index";
    }
+   @GetMapping("/sitemap")
+   public String sitemap() {
+	   return "sitemap";
+   }
 }
