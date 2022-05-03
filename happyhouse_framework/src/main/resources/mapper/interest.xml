@@ -2,15 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ssafy.happyhouse.model.mapper.InterestMapper">
+<mapper namespace="com.ssafy.happyhouse.model.mapper.InterestMapMapper">
 
-	<select id="searchById" parameterType="String" resultType="RegionDto">
-	select * from userInterest
-	where userid = #{userid}
-	</select>
+	<insert id="insertInterest" parameterType="RegionDto">
+		insert into userInterest(userId, sidoCode, sigugunCode,dongCode,areaName) values (#{userId}, #{sidoCode},#{sigugunCode}, #{dongCode}, "tmp3")
+	</insert>
 	
-	<select id="deleteInterest" parameterType="int">
-	delete from userInterest where interestId = #{interestID}
-	</select>
+	<delete id="deleteInterest" parameterType="string">
+		delete from userInterest where interestId = #{interestId}
+	</delete>
 	
+	<select id="searchByUserID" parameterType="string" resultType="List">
+		select * from userInterest
+		where userId = #{userId}
+	</select>
+
 </mapper>
