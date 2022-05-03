@@ -9,7 +9,7 @@
             });
         });
     </script>
-
+	<main id="main"> 
     <div class="container text-center mt-3">
         <div class="col-lg-8 mx-auto">
             <div class="jumbotron">
@@ -18,5 +18,6 @@
             </div>
         </div>
     </div>
+    </main>
 
 <%@ include file="../footer.jsp" %>
