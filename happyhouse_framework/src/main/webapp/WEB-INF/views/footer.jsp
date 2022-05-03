@@ -29,10 +29,10 @@
               <h4>Useful Links</h4>
               <ul class="divided-list list-unstyled text-center">
                 <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="index.jsp#services">회사 소개</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="index.jsp#contact">고객센터</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="${root}/notice">공지사항</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="sitemap.jsp">사이트맵</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/WEB-INF/views/index.jsp#services">회사 소개</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/WEB-INF/views/index.jsp#contact">고객센터</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/notice">공지사항</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/sitemap">사이트맵</a></li>
               </ul>
             </div>
 
@@ -40,10 +40,9 @@
               <h4>서비스들</h4>
               <ul class="divided-list list-unstyled text-center">
                 <li><i class="bx bx-chevron-right"></i> <a href="/apart">주택 실거래가 조회</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="registerInterest.jsp">관심 지역 등록</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/interest/register">관심 지역 등록</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="/interestinfo/store">주변탐방 업종 정보 조회</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="/interestinfo/env">주변환경 정보 조회</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="findHospital.jsp">안심병원 조회</a></li>
               </ul>
             </div>
           </div>
