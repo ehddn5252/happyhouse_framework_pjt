@@ -13,19 +13,17 @@ $(document).ready(function () {
 $("#registNotice").click(function () {
 	var content = $("#addNotice-content").val();
 	var title = $("#addNotice-title").val();
-	var userID =  $("#userId").val();
+	/* var userID =  $("#userId").val(); */
 	
 	
 	let noticeinfo = {
-		'userID': userID,
+		'userID': "${userInfo.userId}",
 		'noticeTitle': title,
 		'noticeContent': content
 	   };
-	console.log(noticeinfo)
-	console.log("============")
-	console.log(${root})
+
     $.ajax({
-    	url: '${root}/notice',
+    	url: '/notice',
       	type: 'POST',
       	
       	dataType: 'text',
