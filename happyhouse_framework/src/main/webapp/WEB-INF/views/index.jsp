@@ -29,12 +29,12 @@
 
           <div class="row">
             <div
-              onclick="location.replace('houseDeal?act=goPage')"
+              onclick="location.replace('/apart')"
               class="company-button col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
             >
               <div class="icon-box" data-aos="fade-up">
                 <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                <h4 class="title"><a href="houseDeal?act=goPage">주택 실거래가 조회</a></h4>
+                <h4 class="title"><a href="/apart">주택 실거래가 조회</a></h4>
                 <p class="description">
                   	원하는 지역을 선택하면 해당 지역의 주택 실거래가 정보를 제공합니다.
                 </p>
@@ -42,7 +42,7 @@
             </div>
 
             <div
-              onclick="location.replace('main?act=store&cmd=mvInterest')"
+              onclick="location.replace('/interest/list')"
               class="company-button col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
@@ -55,7 +55,7 @@
             </div>
 
             <div
-              onclick="location.replace('main?act=store&cmd=mvStore')"
+              onclick="location.replace('/interestinfo/store')"
               class="company-button col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
@@ -66,7 +66,7 @@
             </div>
 
             <div
-              onclick="location.replace('main?act=env&cmd=mvEnv')"
+              onclick="location.replace('/interestinfo/env')"
               class="company-button col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
