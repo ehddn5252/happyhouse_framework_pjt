@@ -17,15 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @CrossOrigin("*")
 public class UserInterestController2 {
 
-	@GetMapping("/interest1")
-	public String moveInterest() throws Exception {
-		return "interest";
-	}
-	
-
-	@GetMapping("/interest2")
+	// 관심지역 등록 : /interest/register
+	// 실거래가 조회 : /apart
+	@GetMapping("/interest/register")
 	public String moveInterest2() throws Exception {
-		return "addInterest2";
+		return "addInterest";
 	}
 	
 	@GetMapping("/store")

@@ -5,8 +5,9 @@
 <mapper namespace="com.ssafy.happyhouse.model.mapper.InterestMapMapper">
 
 	<insert id="insertInterest" parameterType="RegionDto">
-		insert into userInterest(userId, sidoCode, sigugunCode,dongCode,areaName) values (#{userId}, #{sidoCode},#{sigugunCode}, #{dongCode}, "tmp3")
+		insert into userInterest(userId, sidoCode, sigugunCode,dongCode,areaName) values (#{userId}, #{sidoCode},#{sigugunCode}, #{dongCode}, #{areaName})
 	</insert>
+	
 	
 	<delete id="deleteInterest" parameterType="string">
 		delete from userInterest where interestId = #{interestId}
@@ -16,5 +17,4 @@
 		select * from userInterest
 		where userId = #{userId}
 	</select>
-
 </mapper>
