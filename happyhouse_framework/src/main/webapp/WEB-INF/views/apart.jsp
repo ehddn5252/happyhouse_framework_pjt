@@ -39,6 +39,7 @@
 		<div class="row">
 			<div class="card col-sm-6 mt-1" style="min-height: 850px;">
 				<div class="card-body">
+				<div class="row">
 					<div class="row form-group form-inline justify-content-center">
 						<div class="col">
 						<label class="mr-2" for="sido">시도 : </label>
@@ -58,18 +59,27 @@
 							<option value="0">선택</option>
 						</select>
 						</div>
-						<div class="col">
+						</div>
+						
+						<div class= "row">
+						
 						<iframe id="iframe1" name="iframe1" style="display:none"></iframe>
 					
 						<!--<form action="" method="get"> -->
-
+						
 						<form id="findAptBtn" name="form" method="get" target="iframe1">
-
-						<input type="text" id="searchAptName" name="aptName" placeholder="apt">
+						<div class="col">
+						<label class="mr-2 ml-3 mt-3" for="dong"> 아파트 명: </label>
+						<input type="text" id="searchAptName" class="form-control" style="border: 1px solid #964B00;" name="aptName" placeholder="apt">
+						</div>
+						<div class="col">
 						<div class="button">
 		          		<input type="submit" id="findAptBtn" value="아파트 명으로 검색">
 		        		</div>
+		        		</div>
 						</form>
+						
+						
 						</div>
 						<!-- <button type="button" id="aptSearchBtn">검색</button> -->
 					</div>
