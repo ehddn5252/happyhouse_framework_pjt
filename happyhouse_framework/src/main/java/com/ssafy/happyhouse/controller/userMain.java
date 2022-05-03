@@ -1,276 +1,154 @@
 package com.ssafy.happyhouse.controller;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.ssafy.happyhouse.model.UserDto;
 import com.ssafy.happyhouse.model.service.UserService;
-import com.ssafy.happyhouse.model.service.UserServiceImpl;
-import com.ssafy.util.PageNavigation;
 
-@WebServlet("/user")
-public class userMain extends HttpServlet  {
-	private static final long serialVersionUID = 1L;
+@Controller
+@RequestMapping("/user")
+public class userMain  {
 	
-	private UserService userService = UserServiceImpl.getUserService();
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		doGet(request, response);
-	}
+	private static final Logger logger = LoggerFactory.getLogger(userMain.class);
 	
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		String act = request.getParameter("act");
-		String path = "/index.jsp";
-		if("mvregister".equals(act)) {
-			response.sendRedirect(request.getContextPath() + "/register.jsp");
-		} else if("mvError".equals(act)) {
-			response.sendRedirect(request.getContextPath() + "/error/error.jsp");
-		} else if("mvfindpwd".equals(act)) {
-			response.sendRedirect(request.getContextPath() + "/findPwd.jsp");
-		} else if("mvmypage".equals(act)) {
-			path = getUser(request, response);
-			request.getRequestDispatcher(path).forward(request, response);
-		} else if("mvModifyPwd".equals(act)) {
-			response.sendRedirect(request.getContextPath() + "/modifyPwd.jsp");
-		} else if("register".equals(act)) {
-			int state = registerMember(request, response);
-			// 정상적으로 회원가입시 1, 아니면 0
-			if (state==1) {
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
-			} else {
-				path = "/error/error.jsp";
-				request.getRequestDispatcher(path).forward(request, response);
-			}
-		} else if("idcheck".equals(act)) {
-			int cnt = idCheck(request, response);
-			response.getWriter().append(cnt + "");
-		} else if("findpwd".equals(act)) {
-			response.setCharacterEncoding("UTF-8");
-			String msg = findPwd(request, response);
-			response.getWriter().append(msg + "");
-		} else if("userinfo".equals(act)) {
-			path = getUser(request, response);
-			request.getRequestDispatcher(path).forward(request, response);
-		} else if("login".equals(act)) {
-			String state = loginMember(request, response);
-			response.getWriter().append(state + "");
-		}else if("logout".equals(act)) {
-			path = logoutUser(request, response);
-			response.sendRedirect(path);
-		} else if ("list".equals(act)) {
-			path = searchAllUser(request, response);
-			request.getRequestDispatcher(path).forward(request, response);
-		}  else if ("modify".equals(act)) {
-			path = updateUser(request, response);
-			response.sendRedirect(path);
-		} else if ("modifypwd".equals(act)) {
-			String msg = updatePwd(request, response);
-			response.getWriter().append(msg + "");
-		}else if ("delete".equals(act)) {
-			path = deleteUser(request, response);
-			response.sendRedirect(path);
-		}
-	}
+	@Autowired
+	private UserService userService;
 
-	private String findPwd(HttpServletRequest request, HttpServletResponse response) {
-
-		String id = request.getParameter("userid");
-		
-		try {
-			String pwd = userService.searchPwdById(id);
-			if (pwd!=null) {
-				return id+"님의 비밀번호는 "+pwd+"입니다.";
-			} else {
-				return "해당 회원은 존재하지 않습니다.";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("msg", "글목록 얻기중 에러가 발생했습니다.");
-			return "에러";
-		}
-	}
-
-	private String searchAllUser(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		UserDto userDto = (UserDto) session.getAttribute("userInfo");
-		// 관리자모드일 때만 조회가능
-		if(userDto.getManager() == "manager") {
-			String pg = request.getParameter("pg");
-			String key = request.getParameter("key");
-			String word = request.getParameter("word");
-			try {
-				List<UserDto> list = userService.userList(pg, key, word);
-				PageNavigation navigation = userService.makePageNavigation(pg, key, word);
-				
-				request.setAttribute("articles", list);
-				request.setAttribute("navi", navigation);
-				request.setAttribute("key", key);
-				request.setAttribute("word", word);
-				
-				return "/guestbook/list.jsp";
-			} catch (Exception e) {
-				e.printStackTrace();
-				request.setAttribute("msg", "글목록 얻기중 에러가 발생했습니다.");
-				return "/error/error.jsp";
-			}
-		} else {			
-			return "/user?act=mvlogin";
-		}
-	}
-
-	private String updateUser(HttpServletRequest request, HttpServletResponse response) {
-		UserDto userDto = new UserDto();
-		userDto.setUserId(request.getParameter("userId"));
-		userDto.setUserName(request.getParameter("userName"));
-		userDto.setUserEmail(request.getParameter("userEmail"));
-		userDto.setUserPhoneNum(request.getParameter("userPhoneNum"));
-		try {
-			userService.updateMember(userDto);
-			return "user?act=mvmypage";
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("msg", "글 수정중 에러가 발생했습니다.");
-			return "error/error.jsp";
-		}
+	@GetMapping("/register")
+	public String register() {
+		return "register";
 	}
 	
-	private String updatePwd(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		UserDto userdto = (UserDto) session.getAttribute("userInfo");
-		String userId = userdto.getUserId();
-		String newpwd = request.getParameter("newpwd");
-		String ckpwd = request.getParameter("ckpwd");
-		System.out.println(userId);
-		System.out.println(newpwd);
-		try {
-			userService.updatePwd(userId, newpwd);
-			return "success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("msg", "글 수정중 에러가 발생했습니다.");
-			return "error";
-		}
-	}
-
-	private String deleteUser(HttpServletRequest request, HttpServletResponse response) {
-		String id = request.getParameter("userId");
-		try {
-			userService.deleteMember(id);
-			return logoutUser(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("msg", "글 얻기중 에러가 발생했습니다.");
-			return "error/error.jsp";
-		}
-	}
-
-	private int idCheck(HttpServletRequest request, HttpServletResponse response) {
-		int cnt = 1;
-		String id = request.getParameter("ckid");
-		cnt = userService.idCheck(id);
-		return cnt;
-	}
-
-	private int registerMember(HttpServletRequest request, HttpServletResponse response) {
-		UserDto userDto = new UserDto();
-		userDto.setUserName(request.getParameter("name"));
-		userDto.setUserId(request.getParameter("id"));
-		userDto.setUserPwd(request.getParameter("password"));
-		userDto.setUserBirth(request.getParameter("birth"));
-		userDto.setUserGender(request.getParameter("gender"));
-		userDto.setUserEmail(request.getParameter("email"));
-		userDto.setUserPhoneNum(request.getParameter("phonenum"));
-		userDto.setRegistDate(LocalDate.now().toString());
+	@PostMapping("/register")
+	public String register(UserDto userDto, Model model) throws Exception {
 		userDto.setManager("user");
-		try {
-			userService.registerMember(userDto);
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("msg", "회원 가입 중 문제가 발생했습니다.");
-			return 0;
-		}
+		userDto.setRegistDate(LocalDate.now().toString());
+		logger.debug("userDto info : {}", userDto);
+		userService.register(userDto);
+		return "redirect:/";
 	}
 	
-	// 로그인 성공하면 1, 아니면 0, 오류뜨면 -1
-	private String loginMember(HttpServletRequest request, HttpServletResponse response) {
-		UserDto userDto = null;
-		String id = request.getParameter("userid");
-		String pass = request.getParameter("userpwd");
-		
-		try {
-			userDto = userService.login(id, pass);
-			if(userDto != null) { // 로그인 성공
-//				session setting
-				HttpSession session = request.getSession();
-				session.setAttribute("userInfo", userDto);
-				
-				String idsv = request.getParameter("idsave");
-				if("saveok".equals(idsv)) { // 아이디 저장 체크
-	//				Cookie setting
-					Cookie cookie = new Cookie("loginid", id);
-					cookie.setMaxAge(60*60*24*365*20);
-					cookie.setPath(request.getContextPath());
-					
-					response.addCookie(cookie);
-				} else { // 아이디 저장 체크 X
-					Cookie[] cookies = request.getCookies();
-					if(cookies != null) {
-						for(int i=0;i<cookies.length;i++) {
-							if(cookies[i].getName().equals("loginid")) {
-								cookies[i].setMaxAge(0);
-								response.addCookie(cookies[i]);
-								break;
-							}
-						}
-					}
-				}
-				
-				return "1";
-			} else { // 로그인 실패
-				return "0";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "로그인 처리중 문제 발생!!";
-		}
+	@GetMapping("/idcheck")
+	public @ResponseBody String idCheck(@RequestParam("ckid") String checkId) throws Exception {
+		int idCount = userService.idCheck(checkId);
+		JSONObject json = new JSONObject();
+		json.put("idcount", idCount);
+		return json.toString();
 	}
+	
+	
+	@PostMapping("/login")
+	public @ResponseBody String login(@RequestParam Map<String, String> map, Model model, HttpSession session,
+			HttpServletResponse response) throws Exception {
+		logger.debug("map : {}", map);
+		UserDto UserDto = userService.login(map);
+		if (UserDto != null) {
+			session.setAttribute("userInfo", UserDto);
 
-	private String logoutUser(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		System.out.println("로그아웃");
-		return "index.jsp";
-	}
-	
-	
-	private String getUser(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session =  request.getSession();
-		UserDto loginUserDto = (UserDto)session.getAttribute("userInfo");
-		String userId = loginUserDto.getUserId();	
-		
-		try {
-			UserDto userDto = userService.infoMember(userId);
-			request.setAttribute("userInfo", userDto);
-			return "myPage.jsp";
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("msg", "글 얻기중 에러가 발생했습니다.");
-			return "/error/error.jsp";
+			Cookie cookie = new Cookie("ssafy_id", map.get("userId"));
+			cookie.setPath("/");
+			if ("true".equals(map.get("idsave"))) {
+				cookie.setMaxAge(60 * 60 * 24 * 365 * 40);
+			} else {
+				cookie.setMaxAge(0);
+			}
+			response.addCookie(cookie);
+			return "1";
+		} else {
+			model.addAttribute("msg", "아이디 또는 비밀번호 확인 후 다시 로그인하세요!");
+			return "0";
 		}
-		
 	}
+	
+	// 로그아웃하면, index.jsp로 이동
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	// 마이페이지로 이동
+	@GetMapping("/userinfo")
+	public String userinfo() throws Exception {
+//		ModelAndView mav = new ModelAndView();
+//		UserDto UserDto = userService.searchById(userId);
+//		mav.addObject("userDto", UserDto);
+//		mav.setViewName();
+		return "myPage";
+	}
+	
+	
+	// 비밀번호 찾기로 이동
+	@GetMapping("/findpwd")
+	public String findpwd() {
+		return "findPwd";
+	}
+	
+	
+	// 비밀번호 수정으로 이동
+	@GetMapping("/modifypwd")
+	public String modifypwd() {
+		return "modifyPwd";
+	}
+	
+	// 마이페이지로 이동
+	@DeleteMapping(value = "/delete/{userId}")
+	public @ResponseBody String userDelete(@PathVariable String userId, HttpSession session) throws Exception {
+		logger.debug("[delete] userId info : {}", userId);
+		userService.deleteUser(userId);
+		session.invalidate();
+		
+		JSONObject json = new JSONObject();
+		json.put("status", "성공적으로 삭제.");
+		return json.toString();
+	}
+	
+	@PutMapping(value = "/modify")
+	public @ResponseBody String userModify(@RequestBody UserDto userDto, HttpSession session) throws Exception {
+		System.out.println("수정");
+		logger.debug("[modify] userDto info : {}", userDto.toString());
+		userService.updateUser(userDto);
+		session.setAttribute("userInfo", userDto);
+		
+		JSONObject json = new JSONObject();
+		json.put("status", "성공적으로 변경했습니다");
+		System.out.println("변경성공");
+		return json.toString();
+	}
+	
+	@PostMapping(value = "/findpwd/{userId}")
+	public @ResponseBody String searchPwdById(@PathVariable String userId) throws Exception {
+		logger.debug("[delete] userId info : {}", userId);
+		String userPwd=userService.searchPwdById(userId);
+		JSONObject json = new JSONObject();
+		if (userPwd==null) {
+			json.put("msg", "해당 회원이 존재하지 않습니다.");
+		} else {
+			json.put("msg", userId+"님의 비밀번호는 "+userPwd+"입니다.");
+		}
+		return json.toString();
+	}
+	
+
 }
