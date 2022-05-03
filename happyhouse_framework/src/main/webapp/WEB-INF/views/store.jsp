@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.ssafy.dto.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.ssafy.happyhouse.model.*"%>
 <%@ include file="header.jsp" %>
 <c:if test="${empty userInfo}">
    <script>

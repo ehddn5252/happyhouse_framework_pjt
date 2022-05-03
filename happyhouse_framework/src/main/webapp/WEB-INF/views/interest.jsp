@@ -3,12 +3,12 @@
 
 <%@ include file="header.jsp"%>
 
-<c:if test="${empty userInfo}">
+<%-- <c:if test="${empty userInfo}">
    <script>
    alert("로그인 상태에서 볼 수 있는 페이지입니다.");
    location.href = "${root}/index.jsp";
    </script>
-</c:if>
+</c:if> --%>
 <main id="main"> <!-- ======= Breadcrumbs Section ======= -->
 <section class="breadcrumbs">
 	<div class="container">
@@ -93,9 +93,8 @@ $(function(){
 	    $("#showInterestList").click(function(){
 	        $.ajax({
 	        	type:'get',
-	        	url:'interest',
-	        	data:{act : "list",
-	        		userid:`${sessionScope.userInfo.userId}`},
+	        	url:'/interest/list',
+
 	        	dataType:'text',
 	        	success:function(data,textStatus){
 	        		var res = JSON.parse(data);
@@ -106,8 +105,10 @@ $(function(){
 	        		
 	        		var areaAddr=[];
 	        		for(item in res){
+	        			var regionCode = res[item].sidoCode +""+ res[item].sigugunCode+""+ res[item].dongCode+"00";
+	        			
 	        			str += "<tr>";
-	        			str += "<td><span id='"+res[item].regionCode+"'>"+res[item].areaname+"</span></td>";
+	        			str += "<td><span id='"+regionCode+"'>"+res[item].areaname+"</span></td>";
 	        			str += "<td><a type=\"button\" class=\"storeBtn btn btn-warning btn-sm\">상권정보</a>&nbsp;";
 	        			str += "<a type=\"button\" class=\"envBtn btn btn-success btn-sm\">환경정보</a>&nbsp;";
 	        			str += 	"<a type=\"button\" id='"+res[item].interestid+"' class=\"deleteBtn btn-outline-light text-dark btn-sm\">삭제</a></td>";
@@ -122,7 +123,7 @@ $(function(){
 	            },
 	            error:function (data, textStatus) {
 	                console.log(data);
-	                console.log("관심 지역 조회 중 에러 발색");
+	                console.log("관심 지역 조회 중 에러 발생");
 	            }
 	        })
 	            			

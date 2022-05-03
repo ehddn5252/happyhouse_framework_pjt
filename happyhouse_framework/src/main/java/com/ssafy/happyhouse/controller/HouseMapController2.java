@@ -18,16 +18,12 @@ import com.ssafy.happyhouse.model.HouseInfoDto;
 import com.ssafy.happyhouse.model.SidoGugunCodeDto;
 import com.ssafy.happyhouse.model.service.HouseMapService;
 
-
 // CrossOrigin("localhost:8080") 은 해당 사용자만 사용할 수 있게 한다.
 @Controller
-
 @CrossOrigin("*")
 public class HouseMapController2 {
-
 	@GetMapping("/apart")
 	public String moveApart() throws Exception {
 		return "apart";
 	}
-
 }
