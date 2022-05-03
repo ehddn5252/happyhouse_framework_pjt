@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/header.jsp" %>
+<%@ include file="../header.jsp" %>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -9,7 +9,7 @@
             });
         });
     </script>
-
+	<main id="main"> 
     <div class="container text-center mt-3">
         <div class="col-lg-8 mx-auto">
             <div class="jumbotron">
@@ -19,5 +19,6 @@
             </div>
         </div>
     </div>
+    </main>
 
-<%@ include file="/footer.jsp" %>
+<%@ include file="../footer.jsp" %>

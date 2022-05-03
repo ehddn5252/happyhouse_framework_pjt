@@ -36,6 +36,7 @@ public class HouseNoticeController {
 	}
 	
 	
+	
 	@GetMapping
 	public String notice(Model model) {
 		model.addAttribute("nlist",service.findAll());

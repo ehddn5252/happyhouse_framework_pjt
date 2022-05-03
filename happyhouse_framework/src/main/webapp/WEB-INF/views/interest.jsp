@@ -32,7 +32,7 @@
 	<!-- End Breadcrumbs Section -->
 	<div class="row">
 		<div class="col-sm-5">
-			<form id="infoForm" action="" method="get">
+			<form id="infoForm" action="" method="">
 
 				<!-- 연의 추가 관심 지역 리스트 servlet으로 가기 위한 param -->
 
@@ -55,74 +55,102 @@
 		<div class="col-sm-7">
 			<div id="map" style="width: 80%; height: 500px"></div>
 		</div>
-	</div>s
+	</div>
 </div>
 <!-- End Portfolio Details Section -->
 </main>
 
 <!-- End #main -->
-<%@ include file="footer.jsp" %>
+<%@ include file="footer.jsp" %>s
 
 <!-- 연의 추가 관심 지역 리스트 script -->
 <script>
+
 $(function(){
-		$(document).on('click',".storeBtn", function(){
-			$("#infoForm").attr("action","main");
-		    $("input[name=act]").val("store");
-		    $("input[name=cmd]").val("mvStore");
-		    $("input[name=regionCode]").val($(this).parent().siblings().children("span").attr("id"));
-		    $("#infoForm").submit();
-	    });
 		$(document).on('click',".envBtn", function(){
-			$("#infoForm").attr("action","main");
-	        $("input[name=act]").val("env");
-	        $("input[name=cmd]").val("mvEnv");
-	        $("input[name=regionCode]").val($(this).parent().siblings().children("span").attr("id"));
-	        $("#infoForm").submit();
+			var code = $(this).attr("id");
+			console.log(code);
+		    location.href="/interestinfo/env?code="+code;
+	    });
+		$(document).on('click',".storeBtn", function(){
+			var code = $(this).attr("id");
+			console.log(code);
+		    location.href="/interestinfo/store?code="+code;
 	    })
-	    
+ 	    
 	    $(document).on('click',".deleteBtn", function(){
 	        if(confirm("해당 지역을 관심지역에서 삭제시키시겠습니까?")) {
-		    	$("#infoForm").attr("action","interest");
-		        $("input[name=act]").val("deleteInterest");
-		        $("input[name=interestID]").val($(this).attr("id"));
-		        $("#infoForm").submit();
+	        	var interestId = $(this).attr("id");
+	        	console.log(${userIogin})
+		    	console.log(interestId);
+			    $.ajax({
+			    	type:'DELETE',
+			    	url:'/interest/list/${userInfo.userId}/'+interestId,
+			    	dataType:"json",
+			    	success:function(data,textStatus){
+		        		var tbodyEl = $("#arealist");
+		        		var str="";
+		        		tbodyEl.empty();
+		        		
+		        		var areaAddr=[];
+		        		for(item in data){
+		        			var regionCode = data[item].sidoCode +""+ data[item].sigugunCode+""+ data[item].dongCode+"00"; 
+		        			str += "<tr>";
+		        			str += "<td><span id='"+regionCode+"'>"+data[item].areaName+"</span></td>";
+		        			str += "<td><a type=\"button\" id='"+regionCode+"' class=\"storeBtn btn btn-warning btn-sm\">상권정보</a>&nbsp;";
+		        			str += "<a type=\"button\" id='"+regionCode+"' class=\"envBtn btn btn-success btn-sm\">환경정보</a>&nbsp;";
+		        			str += 	"<a type=\"button\" id='"+data[item].interestId+"' class=\"deleteBtn btn-outline-light text-dark btn-sm\">삭제</a></td>";
+		        			str += "</tr>";
+		        			areaAddr.push({address : data[item].areaName});
+		        			mapMarkByAddr(areaAddr);
+		        		}
+		        		tbodyEl.append(str);
+		        		
+			    	}
+			    })
 	    	}
+	    })
+ 	    
+	    $("#deleteBtn").on("click",function(){
+	    	
 	    })
 	    
 	    $("#showInterestList").click(function(){
 	        $.ajax({
 	        	type:'get',
-	        	url:'interest',
-	        	data:{act : "list",
-	        		userid:`${sessionScope.userInfo.userId}`},
-	        	dataType:'text',
+	        	url:'/interest/list/${userInfo.userId}',
+	        	dataType:'json',
 	        	success:function(data,textStatus){
-	        		var res = JSON.parse(data);
-	        		console.log(res);
-	        		var tbodyEl = $("#arealist");
-	        		var str="";
-	        		tbodyEl.empty();
-	        		
-	        		var areaAddr=[];
-	        		for(item in res){
-	        			str += "<tr>";
-	        			str += "<td><span id='"+res[item].regionCode+"'>"+res[item].areaname+"</span></td>";
-	        			str += "<td><a type=\"button\" class=\"storeBtn btn btn-warning btn-sm\">상권정보</a>&nbsp;";
-	        			str += "<a type=\"button\" class=\"envBtn btn btn-success btn-sm\">환경정보</a>&nbsp;";
-	        			str += 	"<a type=\"button\" id='"+res[item].interestid+"' class=\"deleteBtn btn-outline-light text-dark btn-sm\">삭제</a></td>";
-	        			str += "</tr>";
-	        			areaAddr.push({address : res[item].areaname});
-	        			mapMarkByAddr(areaAddr);
+	        		if(data.length>0){
+		        		var tbodyEl = $("#arealist");
+		        		var str="";
+		        		tbodyEl.empty();
+		        		
+		        		var areaAddr=[];
+		        		for(item in data){
+		        			var regionCode = data[item].sidoCode +""+ data[item].sigugunCode+""+ data[item].dongCode+"00"; 
+		        			str += "<tr>";
+		        			str += "<td><span id='"+regionCode+"'>"+data[item].areaName+"</span></td>";
+		        			str += "<td><a type=\"button\" id='"+regionCode+"' class=\"storeBtn btn btn-warning btn-sm\">상권정보</a>&nbsp;";
+		        			str += "<a type=\"button\" id='"+regionCode+"' class=\"envBtn btn btn-success btn-sm\">환경정보</a>&nbsp;";
+		        			str += 	"<a type=\"button\" id='"+data[item].interestId+"' class=\"deleteBtn btn-outline-light text-dark btn-sm\">삭제</a></td>";
+		        			str += "</tr>";
+		        			areaAddr.push({address : data[item].areaName});
+		        			mapMarkByAddr(areaAddr);
+		        		}
+		        		
+		        		
+		        		tbodyEl.append(str);
+	        		}else{
+	        			var tbodyEl = $("#arealist");
+		        		tbodyEl.empty();
+		        		tbodyEl.append("등록된 관심 지역이 없습니다.");
 	        		}
-	        		
-	        		
-	        		tbodyEl.append(str);
 	        		
 	            },
 	            error:function (data, textStatus) {
 	                console.log(data);
-	                console.log("관심 지역 조회 중 에러 발색");
+	                console.log("관심 지역 조회 중 에러 발생");
 	            }
 	        })
 	            			

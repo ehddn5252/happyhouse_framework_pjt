@@ -31,23 +31,23 @@
 		where userId = #{userId}
 	</delete>
 	
-	<select id="searchById" parameterType="string">
-		select userId, userPassword, userEmail, userName, 
+<!-- 	<select id="searchById" parameterType="string">
+		select userId, userPwd, userEmail, userName, 
 		date_format(userBirth, '%Y-%m-%d') userBirth, userGender, date_format(registDate, '%Y-%m-%d') registDate, manager, phoneNum 
 		from user
 		where userId = #{userId}
-	</select>
+	</select> -->
 	
-	<select id="searchPwdById" parameterType="string">
-		select userPassword		
+	<select id="searchPwdById" parameterType="string" resultType="String">
+		select userPwd		
 		from user
 		where userId = #{userId}
 	</select>
 	
 	<select id="login" parameterType="map" resultType="UserDto">
-		select userId, userName, manager 	
+		select userId, userName,userEmail,date_format(userBirth, '%Y-%m-%d') userBirth, phoneNum, manager 	
 		from user
-		where userId = #{userId} and userPassword = #{userPwd}
+		where userId = #{userId} and userPwd = #{userPwd}
 	</select>
 	
 	

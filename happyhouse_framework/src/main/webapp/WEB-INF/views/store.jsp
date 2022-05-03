@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.ssafy.dto.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.ssafy.happyhouse.model.*"%>
 <%@ include file="header.jsp" %>
 <c:if test="${empty userInfo}">
    <script>
@@ -8,9 +8,7 @@
    </script>
 </c:if>
 <%
-	String sido = (String)request.getAttribute("sido");
-	String sigugun = (String)request.getAttribute("sigugun");
-	String dong = (String)request.getAttribute("dong");
+	String code = (String)request.getParameter("code");
 %>
 	<main id="main"> <!-- ======= Breadcrumbs Section ======= -->
 	<section class="breadcrumbs">
@@ -24,6 +22,8 @@
 			</div>
 		</div>
 	</section>
+	
+	
 	<!-- Breadcrumbs Section --> <!-- ======= Portfolio Details Section ======= -->
 
 
@@ -54,14 +54,14 @@
 
 					<!-- 상권 정보 -->
 
-					<label><input type="checkbox" name="mainCode" value="'N'">관광/여가/오락</label>
-					<label><input type="checkbox" name="mainCode" value="'D'">소매</label>
-					<label><input type="checkbox" name="mainCode" value="'Q'">음식</label>
-					<label><input type="checkbox" name="mainCode" value="'F'">생활서비스</label>
-					<label><input type="checkbox" name="mainCode" value="'O'">숙박</label>
-					<label><input type="checkbox" name="mainCode" value="'P'">스포츠</label>
-					<label><input type="checkbox" name="mainCode" value="'R'">학문/교육</label>
-					<label><input type="checkbox" name="mainCode" value="'L'">부동산</label>
+					<label><input type="checkbox" name="mainCode" value="N" checked>관광/여가/오락</label>
+					<label><input type="checkbox" name="mainCode" value="D" checked>소매</label>
+					<label><input type="checkbox" name="mainCode" value="Q" checked>음식</label>
+					<label><input type="checkbox" name="mainCode" value="F" checked>생활서비스</label>
+					<label><input type="checkbox" name="mainCode" value="O" checked>숙박</label>
+					<label><input type="checkbox" name="mainCode" value="P" checked>스포츠</label>
+					<label><input type="checkbox" name="mainCode" value="R" checked>학문/교육</label>
+					<label><input type="checkbox" name="mainCode" value="L" checked>부동산</label>
 
 					<!-- <button id="listBtn2" type="button" onClick="searchStore()">검색</button> -->
 					<input type="button" id="searchStoreBtn" value="조회" />
@@ -96,13 +96,52 @@
 
 	<!-- End #main -->
 <%@ include file="footer.jsp" %>
-	<!-- 연의 추가  -->
+	
+<script type="text/javascript">
+	let colorArr = ['table-primary','table-success','table-danger'];
+	$(document).ready(function(){	
+		
+		$.get("/apart/map/sido"
+			,function(data, status){
+				$.each(data, function(index, vo) {
+					$("#sido").append("<option value='"+vo.sidoCode+"'>"+vo.sidoName+"</option>");
+				});
+			}
+			, "json"
+		);
+	});
+	$(document).on("change", "#sido", function() {
+		$.get("/apart/map/gugun"
+				,{sido: $("#sido").val()}
+				,function(data, status){
+					$("#gugun").empty();
+					$("#gugun").append('<option value="0">선택</option>');
+					$.each(data, function(index, vo) {
+						$("#gugun").append("<option value='"+vo.gugunCode+"'>"+vo.gugunName+"</option>");
+					});
+				}
+				, "json"
+		);
+	});
+	$(document).on("change", "#gugun", function() {
+		$.get("/apart/map/dong"
+				,{gugun: $("#gugun").val()}
+				,function(data, status){
+					$("#dong").empty();
+					$("#dong").append('<option value="0">선택</option>');
+					$.each(data, function(index, vo) {
+						$("#dong").append("<option value='"+vo.dongCode+"'>"+vo.dongName+"</option>");
+					});
+				}
+				, "json"
+		);
+	});
+	</script> 
     
 	<script>
 	$(document).ready(function () {
 		
 		setRegion();
-		
 		
 		$("#searchStoreBtn").click(function(){
 			var sido = $("#sido option:selected").val();
@@ -111,38 +150,43 @@
 			
 			//regionCode 생성
 			var regionCode = sido+""+sigugun+""+dong+"00";
+			console.log(regionCode);
+			if(regionCode == "00"){
+				alert("지역을 선택해 주세요.");
+				return;
+			}
 			
 			// checked 넘겨주기위한 string 생성 (?checked='R'&checked='L'....)
-			var checkedList = "?";
+			var checkedList = new Array();
 			$("input[name='mainCode']:checked").each(function(){
-				var val = $(this).val();
-				checkedList += ("checked="+val+"&") ;
+				checkedList.push($(this).val());
 			})
 			
+			if(checkedList.length == 0){
+				alert("상권 종류를 하나 이상 선택해 주세요.");
+				return;
+			}
 			
 			$.ajax({
-				type:'get',
-	            url:'main'+checkedList,	
-	           	data: {
-	           		act:"store",
-	           		cmd:"searchStore",
-	           		regionCode  :regionCode,
-					},
+				type:'GET',
+	            url:"/interestinfo/store/searchByCode/"+regionCode+"/codes/"+checkedList,	
 				dataType:'text',
 	            success: function(data, textStatus) {
 	            	var res = JSON.parse(data);// String을 JSON으로
-	            	var tbodyEl = $("#storeinfo-tbody");
-	            	var theadEl = $("#storeinfo-thead");
-	            	theadEl.empty();
-	            	theadEl.append("<tr><th>상호명</th><th>도로명 주소</th></tr>");
 	            	
-	            	tbodyEl.empty();
-	            	var str ="";
-	            	var positions=[];
-	            	if(res!=null){
+	            	if(res.length >0 ){
+	            		console.log(res);
+	            		var tbodyEl = $("#storeinfo-tbody");
+		            	var theadEl = $("#storeinfo-thead");
+		            	theadEl.empty();
+		            	theadEl.append("<tr><th>상호명</th><th>도로명 주소</th></tr>");
+		            	
+		            	tbodyEl.empty();
+		            	var str ="";
+		            	var positions=[];
 	            		for( item in res ){
 		            		str += "<tr>";
-		            		str += "<td>"+res[item].storename+"</td>";
+		            		str += "<td>"+res[item].storeName+"</td>";
 							str += "<td>"+res[item].address+"</td>";
 							str += "</tr>";
 							
@@ -152,7 +196,9 @@
 		            	tbodyEl.append(str);
 		            	mapMarkByLatlng(positions);
 	            	}else{
-	            		console.log("데이터 없음")
+	            		var theadEl = $("#storeinfo-thead");
+	            		theadEl.empty();
+	            		theadEl.append("<tr><th>상권 정보가 없습니다.</th></tr>");
 	            	}
 	            	
 	            },
@@ -161,8 +207,6 @@
 	                console.log("에러");
 	            }
 			})
-			
-			
 		})
 		
 		function mapMarkByLatlng(positions){
@@ -202,11 +246,18 @@
 	})
 	
 	function setRegion(){
-		$("#sido option[value='<%=sido%>']").attr("selected","selected");
-		sidoChange();
-		$('#sigugun option[value=<%=sigugun%>]').attr("selected","selected");
-		sigugunChange();
-		$('#dong option[value=<%=dong%>]').attr("selected", "selected");
-		dongChange();
+		if(<%=code%> != null){
+			var code = "<%=code%>";
+			var sido = code.substring(0, 2);
+			var sigugun = code.substring(2, 5);
+			var dong = code.substring(5, 8);
+			
+			$("#sido option[value='"+sido+"']").attr("selected","selected");
+			sidoChange();
+ 			$("#sigugun option[value='"+sigugun+"']").attr("selected","selected");
+			sigugunChange();
+			$("#dong option[value='"+dong+"']").attr("selected", "selected");
+			dongChange()
+		}
 	}
 	</script>

@@ -11,19 +11,56 @@
 </c:if>
 
 <script>
-function deleteInfo(no) {
-	console.log(no);
-	if(confirm("정말로 탈퇴하실건가요?")) {
-		$("#myPage-action").val("delete")
-		$("#myPageform").attr("action", "${root}/user").submit();
-	}
-}
 
-$(document).ready(function () {
+	//회원 탈퇴.
+	$(document).on("click", "#info-delete-btn", function() {
+		if(confirm("정말 삭제?")) {
+			let delid = $("#modUserId").val();
+			$.ajax({
+				url:'${root}/user/delete/' + delid,  
+				type:'DELETE',
+				contentType:'application/json;charset=utf-8',
+				dataType:'json',
+				success:function() {
+					location.href="${root}/";
+				},
+				error:function(xhr,status,msg){
+					console.log("상태값 : " + status + " Http에러메시지 : "+msg);
+				}
+			}); 
+		}
+	});
+	
+	
+	$(document).on("click", "#info-check-btn", function() {
+		/* let mid = $(this).parents("tr").attr("data-id"); */
+		let modifyinfo = JSON.stringify({
+					"userId" : $("#modUserId").val(), 
+					"phoneNum" : $("#phoneNum").val(), 
+					"userName" : $("#userName").val(), 
+					"userEmail" : $("#userEmail").val(),
+					"userBirth" : $("#userBirth").val()
+				   });
+		$.ajax({
+			url:'${root}/user/modify',  
+			type:'PUT',
+			contentType:'application/json;charset=utf-8',
+			dataType:'json',
+			data: modifyinfo,
+			success:function() {
+				location.href="/user/userinfo";
+			},
+			error:function(xhr,status,msg){
+				console.log("상태값 : " + status + " Http에러메시지 : "+msg);
+			}
+		});
+	});
+
+/* $(document).ready(function () {
     $("#info-check-btn").click(function () {
-        $("#myPageform").attr("action", "${root}/user").submit();
+        $("#myPageform").attr("action", "/user/modify").submit();
     });
-});
+}); */
 </script>
     
     <main id="main">
@@ -42,32 +79,31 @@ $(document).ready(function () {
      <!-- End Breadcrumbs Section -->
 
      <section class="myPage-check-container">
-       <form id="myPageform" method="post">
-       <input type="hidden" id="myPage-action" name="act" value="modify">
+       <form id="myPageform">
        <div class="row">
          <table class="myPage-check col-6" style="float: none; margin: 0 auto">
          <tbody>
          	<tr>
          		<th>아이디</th>
          		<td><input type="text" value="${userInfo.userId}" disabled></td>
-         		<td><input type="hidden" name="userId" value="${userInfo.userId}" ></td>
+         		<td><input id="modUserId" type="hidden" name="userId" value="${userInfo.userId}" ></td>
          	</tr>
          	<tr>
          		<th>성함</th>
-         		<td><input type="text" class="modify" name="userName" value="${userInfo.userName}" disabled></td>
+         		<td><input id="userName" type="text" class="modify" name="userName" value="${userInfo.userName}" disabled></td>
          	</tr>
          	<tr>
          		<th>전화번호</th>
-         		<td><input type="text" class="modify" name="userPhoneNum" value="${userInfo.userPhoneNum}" disabled></td>
+         		<td><input id="phoneNum" type="text" class="modify" name="phoneNum" value="${userInfo.phoneNum}" disabled></td>
          	</tr>
          	<tr>
          		<th>생일</th>
          		
-         		<td><input type="date" name="userBirth" value="${userInfo.userBirth}" disabled></td>
+         		<td><input id="userBirth" type="date" name="userBirth" value="${userInfo.userBirth}" disabled></td>
          	</tr>
          	<tr>
          		<th>이메일</th>
-         		<td><input type="email" class="modify" name="userEmail" value="${userInfo.userEmail}" disabled></td>
+         		<td><input id="userEmail" type="email" class="modify" name="userEmail" value="${userInfo.userEmail}" disabled></td>
          	</tr>
          	
          </tbody>
@@ -76,12 +112,12 @@ $(document).ready(function () {
          
        </div>
        <div class="col-6" style="float: none; margin: 0 auto">
-       	<a style="float:right;" href="user?act=mvModifyPwd">비밀번호 변경</a>
+       	<a style="float:right;" href="/user/modifypwd">비밀번호 변경</a>
        </div>
        <div class="col-lg-12 d-flex justify-content-center btn-box">
-         <button id="info-check-btn" class="d-none">확인</button>
-         <button id="info-modify-btn" >수정</button>
-         <button id="info-delete-btn" onClick="javascript:deleteInfo('${userInfo.userId}');">탈퇴</button>
+         <button type="button" id="info-check-btn" class="d-none">확인</button>
+         <button type="button" id="info-modify-btn" >수정</button>
+         <button type="button" id="info-delete-btn">탈퇴</button>
        </div>
        </form>
      </section>

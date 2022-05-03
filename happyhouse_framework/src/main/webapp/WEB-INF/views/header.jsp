@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<c:if test="${!empty userInfo}">
+	<c:set var="userId" value="${userInfo.userId}"></c:set>
+</c:if>
 
 <!DOCTYPE html>
 <html>
@@ -43,7 +46,7 @@
 
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+	
     <!-- =======================================================
   * Template Name: Squadfree - v4.7.0
   * Template URL: https://bootstrapmade.com/squadfree-free-bootstrap-template-creative/
@@ -51,19 +54,27 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   </head>
-
+<c:if test="${cookie.ssafy_id.value ne null}">
+	<c:set var="idck" value=" checked"/>
+	<c:set var="saveid" value="${cookie.ssafy_id.value}"/>
+</c:if>
 
 	<script>
 		$(document).ready(function () {
+			if ($("#userId").val() != "") {
+			      $("#userId").addClass("focus");
+			      $("#userId").parent().addClass("focus-box");
+			    }
+			
 		  $(".flip").click(function () {
 		    $(".panel").slideToggle("slow");
 		  });
 		// 포커스일 때 포커스 기능 추가(login, password 글자 위로)
-		  $(".login-form input").on("focus", function () {
+		  $(".login-form input:not(#idsave)").on("focus", function () {
 		    $(this).addClass("focus");
 		    $(this).parent().addClass("focus-box");
 		  });
-		  $(".login-form input").on("blur", function () {
+		  $(".login-form input:not(#idsave)").on("blur", function () {
 		    if ($(this).val() == "") {
 		      $(this).removeClass("focus");
 		      $(this).parent().removeClass("focus-box");
@@ -83,17 +94,15 @@
 		  $("#login-btn").on("click", function () {
 			  
 			  $.ajax({
-	          	url: '${root}/user',
-	          	data: {'act': 'login', 'userid': $("#userid").val(), 'userpwd': $("#userpwd").val()},
+	          	url: '${root}/user/login',
+	          	data: {'act': 'login', 'userId': $("#userId").val(), 'userPwd': $("#userPwd").val(), 'idsave': $("#idsave").is(":checked")},
 	            	type: 'Post',
 	            	dataType: 'text',
 	            	success: function (response) {
 	              		if (response==1){location.reload();}
-	              		else if (response==0) {
+	              		else {
 	              			$("#error-msg").text("회원 정보가 일치하지 않습니다.");
-	              		} else {
-	              			location.href="user?act=error&msg="+response;
-	              		}
+	              		} 
 	              	},
 	          		error: function (error){
 	          			console.log(error);
@@ -106,7 +115,7 @@
 		});
 	</script>
 	
-	<c:if test="${!empty userInfo}">
+	<c:if test="${empty userInfo}">
 			<script>
 			$(document).ready(function () {
 		    $(".loginOnly").addClass("d-none");
@@ -114,7 +123,7 @@
 			});
 		    </script>
 	</c:if>
-	<c:if test="${empty userInfo}">
+	<c:if test="${!empty userInfo}">
 		<script>
 		$(document).ready(function () {
 		    $(".loginOnly").removeClass("d-none");
@@ -132,7 +141,7 @@
       <div class="container d-flex align-items-center">
         <div class="logo me-auto">
           <h1 class="text-light">
-            <a href="index.jsp"
+            <a href="/"
               ><span
                 >Happy<span id="logo-a " style="color: rgb(217, 219, 252); font-size: 26px"
                   >House</span
@@ -146,29 +155,29 @@
 
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
-            <li><a class="nav-link scrollto" href="index.jsp">메인화면</a></li>
+            <li><a class="nav-link scrollto" href="/">메인화면</a></li>
             <li><a class="nav-link scrollto" href="index.jsp#services">서비스 소개</a></li>
             <li><a class="nav-link scrollto loginOnly" href="${root}/notice">공지사항</a></li>
             <!-- <li><a class="nav-link scrollto loginOnly" href="findTransaction.jsp">주택실거래가조회</a></li> -->
             <li class="dropdown loginOnly">
-              <a href="houseDeal?act=goPage">
+              <a href="/apart">
                 <span>실거래가 조회</span> <i class="bi bi-chevron-down"></i
               ></a>
               <ul>
-                <li><a href="houseDeal?act=goPage">동별 주택 실거래가 조회</a></li>
-                <li><a href="houseDeal?act=goPageApt">아파트별 주택 실거래가 조회</a></li>
+                <li><a href="/apart">동별 주택 실거래가 조회</a></li>
+                <li><a href="/apart">아파트별 주택 실거래가 조회</a></li>
                             </ul>
             </li>
             <!-- 로그인 안 한 상태 inactive -->
             <li class="dropdown loginOnly">
-              <a href="main?act=store&cmd=mvInterest"
+              <a href="/interest/list"
                 ><span>관심지역조회</span> <i class="bi bi-chevron-down"></i
               ></a>
               <ul>
-                <li><a href="main?act=store&cmd=mvInterest">관심 지역 목록</a></li>
+                <li><a href="/interest/list">관심 지역 목록</a></li>
                 <li><a href="interest?act=mvAddInterest">관심 지역 등록</a></li>
-                <li><a href="main?act=store&cmd=mvStore">주변탐방 업종 정보 조회</a></li>
-                <li><a href="interest/env">주변환경 정보 조회</a></li>
+                <li><a href="/interestinfo/store">주변탐방 업종 정보 조회</a></li>
+                <li><a href="/interestinfo/env">주변환경 정보 조회</a></li>
               </ul>
             </li>
           </ul>
@@ -183,8 +192,8 @@
             class="dropdown-menu dropdown-menu-end dropdown-animation panel menu-form info-container show"
             style="display: none"
           >
-            <a class="mypage-btn" href="user?act=mvmypage">MyPage</a>
-            <button class="btn mypage-btn" onclick="location.href='user?act=logout'" type="button">Logout</button>
+            <a class="mypage-btn" href="/user/userinfo">MyPage</a>
+            <button class="btn mypage-btn" onclick="location.href='/user/logout'" type="button">Logout</button>
           </div>
         </div>
 
@@ -204,23 +213,31 @@
           >
             <form class="login-form">
               <h2>Login</h2>
+              <!-- 아이디 저장 -->
+              
               <div class="txtb">
-                <input id="userid" name="userid" type="text" autocomplete="off"/>
+                <input id="userId" name="userId" type="text" autocomplete="off" value="${saveid}"/>
                 <span data-placeholder="ID" ></span>
               </div>
               <div class="txtb">
-                <input id="userpwd" name="userpwd" type="password" />
+                <input id="userPwd" name="userPwd" type="password" />
                 <span data-placeholder="Password"></span>
               </div>
-              <button type="submit" class="login-btn" id="login-btn"  >Login</button>
+              <div class="form-group form-check text-right">
+                  <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" id="idsave" name="idsave" value="saveok"${idck}> 아이디저장
+                  </label>
+              </div>
+             <!--  <button type="submit" class="login-btn" id="login-btn"  >Login</button> -->
+              <button class="login-btn" id="login-btn"  >Login</button>
               <div id="error-msg"> </div>
               <div class="bottom-text">
                 <p class="mt-2 mb-2">
-                  Don’t have account ? <a href="user?act=mvregister">Sign up</a> <br />
+                  Don’t have account ? <a href="/user/register">Sign up</a> <br />
                 </p>
                 <p class="mt-2 mb-2">
                   Forget your password ?
-                  <a href="user?act=mvfindpwd">Find Password</a>
+                  <a href="/user/findpwd">Find Password</a>
                 </p>
               </div>
             </form>
