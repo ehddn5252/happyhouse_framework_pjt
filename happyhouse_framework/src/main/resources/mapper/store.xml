@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.StoreMapper">
+
+	<sql id="codeList">
+		<if test="codeList != null">
+			and typeMainCode in
+			<foreach item="code" collection="codeList" open="(" close=")" separator="," >
+				#{code}
+			</foreach>
+		</if>
+	</sql>
+
+	<select id="searchByCodes" parameterType="StoreParamDto" resultType="StoreDto">
+	select storeId, storename, address, lng, lat from gangwonstore
+	where regionCode = #{regionCode}
+	<include refid="codeList"></include>
+	</select>
+	
+	
+	<select id="searchAll" parameterType="string" resultType="EnvDto">
+		select * from environ
+		where sidogunCode = #{code} 
+		limit 1, 10
+	</select>
+
+</mapper>

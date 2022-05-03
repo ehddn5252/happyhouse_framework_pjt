@@ -9,5 +9,8 @@
 	where userid = #{userid}
 	</select>
 	
-
+	<select id="deleteInterest" parameterType="int">
+	delete from userInterest where interestId = #{interestID}
+	</select>
+	
 </mapper>
