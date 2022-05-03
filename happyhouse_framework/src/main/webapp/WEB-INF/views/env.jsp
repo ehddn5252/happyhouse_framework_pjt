@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.ssafy.dto.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.ssafy.happyhouse.model.*"%>
 <%@ include file="header.jsp" %>
-<c:if test="${empty userInfo}">
+<%-- <c:if test="${empty userInfo}">
    <script>
    alert("로그인 상태에서 볼 수 있는 페이지입니다.");
    location.href = "${root}/index.jsp";
    </script>
-</c:if>
+</c:if> --%>
 <%
-	String sido = (String)request.getAttribute("sido");
-	String sigugun = (String)request.getAttribute("sigugun");
-	String dong = (String)request.getAttribute("dong");
+	String code = (String)request.getParameter("code");
 %>
 
 	<main id="main"> <!-- ======= Breadcrumbs Section ======= -->
@@ -85,15 +83,72 @@
 	<!-- End #main -->
 <%@ include file="footer.jsp" %>
 
-
-	<!-- 연의 추가  -->
+	<script type="text/javascript">
+	let colorArr = ['table-primary','table-success','table-danger'];
+	$(document).ready(function(){	
+		
+		$.get("/map/sido"
+			,function(data, status){
+				$.each(data, function(index, vo) {
+					$("#sido").append("<option value='"+vo.sidoCode+"'>"+vo.sidoName+"</option>");
+				});
+			}
+			, "json"
+		);
+	});
+	$(document).on("change", "#sido", function() {
+		$.get("/map/gugun"
+				,{sido: $("#sido").val()}
+				,function(data, status){
+					$("#gugun").empty();
+					$("#gugun").append('<option value="0">선택</option>');
+					$.each(data, function(index, vo) {
+						$("#gugun").append("<option value='"+vo.gugunCode+"'>"+vo.gugunName+"</option>");
+					});
+				}
+				, "json"
+		);
+	});
+	$(document).on("change", "#gugun", function() {
+		$.get("/map/dong"
+				,{gugun: $("#gugun").val()}
+				,function(data, status){
+					$("#dong").empty();
+					$("#dong").append('<option value="0">선택</option>');
+					$.each(data, function(index, vo) {
+						$("#dong").append("<option value='"+vo.dongCode+"'>"+vo.dongName+"</option>");
+					});
+				}
+				, "json"
+		);
+	});
+	$(document).on("change", "#dong", function() {
+		$.get("/map/apt"
+				,{dong: $("#dong").val()}
+				,function(data, status){
+					$("tbody").empty();
+					$.each(data, function(index, vo) {
+						let str = `
+							<tr class="${colorArr[index%3]}">
+							<td>${vo.aptCode}</td>
+							<td>${vo.aptName}</td>
+							<td>${vo.sidoName} ${vo.gugunName} ${vo.dongName} ${vo.jibun}</td>
+							<td>${vo.buildYear}</td>
+							<td>${vo.recentPrice}</td>
+						`;
+						$("tbody").append(str);
+					});
+					//displayMarkers(data);
+				}
+				, "json"
+		);
+	});
+	</script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdf614748efadd63bf7ce73b5ddad4f1&libraries=services"></script>
-	<script src="assets/js/store.js"></script>
 	<script>
 	$(document).ready(function () {
 		
 		setRegion();
-		
 		
 		$("#searchEnvBtn").click(function(){
 			var sido = $("#sido option:selected").val();
@@ -102,45 +157,46 @@
 			
 			//regionCode 생성
 			var regionCode = sido+""+sigugun+""+dong+"00";
-			
+
 			$.ajax({
-				type:'get',
-	            url:'main',	
-	           	data: {
-	           		act:"env",
-	           		cmd:"searchEnv",
-	           		regionCode  :regionCode,
-					},
+				type:'GET',
+	            url:'/interestinfo/env/search/'+regionCode,	
 				dataType:'text',
 	            success: function(data, textStatus) {
-	            	console.log(JSON.parse(data)); 	// String을 JSON으로
+	            	console.log(data); 	// String을 JSON으로
 	            	
 	            	var res = JSON.parse(data);
-	            	var tbodyEl = $("#envinfo-tbody");
-	            	var theadEl = $("#envinfo-thead");
-	            	theadEl.empty();
-	            	theadEl.append("<tr><th>업체/기관명</th><th>종류</th></tr>");
-	            	
-	            	tbodyEl.empty();
-	            	var str ="";
-	            	
-	            	var envAddress=[];
-	            	for( item in res ){
-	            		console.log(res[item].address);
-	            		str += "<tr>";
-	            		str += "<td>"+res[item].name+"</td>";
-						str += "<td>"+res[item].typename+"</td>";
-						str += "</tr>";
-						
-						envAddress.push({title : res[item].name,
-										address: res[item].address});
+	            	if(res.length > 0){
+		            	var tbodyEl = $("#envinfo-tbody");
+		            	var theadEl = $("#envinfo-thead");
+		            	theadEl.empty();
+		            	theadEl.append("<tr><th>업체/기관명</th><th>종류</th></tr>");
+		            	
+		            	tbodyEl.empty();
+		            	var str ="";
+		            	
+		            	var envAddress=[];
+		            	for( item in res ){
+		            		console.log(res[item].address);
+		            		str += "<tr>";
+		            		str += "<td>"+res[item].name+"</td>";
+							str += "<td>"+res[item].typeName+"</td>";
+							str += "</tr>";
+							
+							envAddress.push({title : res[item].name,
+											address: res[item].address});
+		            	}
+		            	tbodyEl.append(str);
+		            	mapMarkByAddr(envAddress);
+	            	}else{
+	            		var theadEl = $("#storeinfo-thead");
+	            		theadEl.empty();
+	            		theadEl.append("<tr><th>환경 정보가 없습니다.</th></tr>");
 	            	}
-	            	tbodyEl.append(str);
-	            	mapMarkByAddr(envAddress);
 	            	
 	            },
 	            error:function (data, textStatus) {
-	                console.log(data);
+	            	location.href="/error/error.jsp";
 	            }
 			})
 			
@@ -192,12 +248,19 @@
 	})
 	
 	function setRegion(){
-		$("#sido option[value='<%=sido%>']").attr("selected","selected");
-		sidoChange();
-		$('#sigugun option[value=<%=sigugun%>]').attr("selected","selected");
-		sigugunChange();
-		$('#dong option[value=<%=dong%>]').attr("selected", "selected");
-		dongChange();
+		if(<%=code%> != null){
+			var code = "<%=code%>";
+			var sido = code.substring(0, 2);
+			var sigugun = code.substring(2, 5);
+			var dong = code.substring(5, 8);
+			
+			$("#sido option[value='"+sido+"']").attr("selected","selected");
+			sidoChange();
+ 			$("#sigugun option[value='"+sigugun+"']").attr("selected","selected");
+			sigugunChange();
+			$("#dong option[value='"+dong+"']").attr("selected", "selected");
+			dongChange()
+		}
 	}
 	</script>
 
