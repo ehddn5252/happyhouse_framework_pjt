@@ -29,8 +29,6 @@
               <h4>Useful Links</h4>
               <ul class="divided-list list-unstyled text-center">
                 <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="/WEB-INF/views/index.jsp#services">회사 소개</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="/WEB-INF/views/index.jsp#contact">고객센터</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="/notice">공지사항</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="/sitemap">사이트맵</a></li>
               </ul>

@@ -32,7 +32,7 @@
                 <!--Card image-->
                 <div class="view view-cascade py-3 gradient-card-header info-color">
                   <h5 class="mb-0">
-                    <a class="text-white" href="/register" target="_blank">회원가입</a>
+                    <a class="text-white" href="/user/register" target="_blank">회원가입</a>
                   </h5>
                 </div>
                 <!--/Card image-->
@@ -48,7 +48,7 @@
                 <!--Card image-->
                 <div class="view view-cascade py-3 gradient-card-header info-color">
                   <h5 class="mb-0">
-                    <a class="text-white" href="/userinfo" target="_blank">마이페이지</a>
+                    <a class="text-white" href="/user/userinfo" target="_blank">마이페이지</a>
                   </h5>
                 </div>
                 <!--/Card image-->
@@ -73,13 +73,6 @@
                 <div class="card-body card-body-cascade">
                   <ul class="divided-list list-unstyled text-center">
                     <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
-                    <li>
-                      <i class="bx bx-chevron-right"></i>
-                      <a href="/WEB-INF/views/index.jsp#services">회사 소개</a>
-                    </li>
-                    <li>
-                      <i class="bx bx-chevron-right"></i> <a href="/WEB-INF/views/index.jsp#contact">고객센터</a>
-                    </li>
                     <li><i class="bx bx-chevron-right"></i> <a href="/notice">공지사항</a></li>
                     <li><i class="bx bx-chevron-right"></i> <a href="/sitemap">사이트맵</a></li>
                   </ul>
