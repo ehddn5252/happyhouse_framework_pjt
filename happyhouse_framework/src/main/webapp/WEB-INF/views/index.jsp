@@ -15,7 +15,7 @@
         <a href="#services" class="btn-get-started scrollto"><i class="bx bx-chevrons-down"></i></a>
       </div>
     </section>
-    <!-- End Hero -->
+    <!-- End Hero -->p[	1`
 
     <main id="main">
   

@@ -154,7 +154,7 @@
           <ul>
             <li><a class="nav-link scrollto" href="index.jsp">메인화면</a></li>
             <li><a class="nav-link scrollto" href="index.jsp#services">서비스 소개</a></li>
-            <li><a class="nav-link scrollto loginOnly" href="${root}/NoticeMain2?act=selectAll">공지사항</a></li>
+            <li><a class="nav-link scrollto loginOnly" href="${root}/notice">공지사항</a></li>
             <!-- <li><a class="nav-link scrollto loginOnly" href="findTransaction.jsp">주택실거래가조회</a></li> -->
             <li class="dropdown loginOnly">
               <a href="houseDeal?act=goPage">
