@@ -41,8 +41,8 @@
               <ul class="divided-list list-unstyled text-center">
                 <li><i class="bx bx-chevron-right"></i> <a href="findTransaction.jsp">주택 실거래가 조회</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="registerInterest.jsp">관심 지역 등록</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="main?act=store&cmd=mvStore">주변탐방 업종 정보 조회</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="main?act=env&cmd=mvEnv">주변환경 정보 조회</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/interestinfo/storee">주변탐방 업종 정보 조회</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/interestinfo/env">주변환경 정보 조회</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="findHospital.jsp">안심병원 조회</a></li>
               </ul>
             </div>

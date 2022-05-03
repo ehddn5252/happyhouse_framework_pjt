@@ -173,8 +173,8 @@
               <ul>
                 <li><a href="/interest/list">관심 지역 목록</a></li>
                 <li><a href="interest?act=mvAddInterest">관심 지역 등록</a></li>
-                <li><a href="/interest/store">주변탐방 업종 정보 조회</a></li>
-                <li><a href="/interest/env">주변환경 정보 조회</a></li>
+                <li><a href="/interestinfo/store">주변탐방 업종 정보 조회</a></li>
+                <li><a href="/interestinfo/env">주변환경 정보 조회</a></li>
               </ul>
             </li>
           </ul>

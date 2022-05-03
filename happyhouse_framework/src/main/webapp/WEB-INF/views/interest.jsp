@@ -5,9 +5,8 @@
 
 <c:if test="${!empty userInfo}">
    <script>
-   var userid = ${userInfo.userId};
-/*    alert("로그인 상태에서 볼 수 있는 페이지입니다.");
-   location.href = "${root}/index.jsp"; */
+   alert("로그인 상태에서 볼 수 있는 페이지입니다.");
+   location.href = "${root}/index.jsp";
    </script>
 </c:if>
 <main id="main"> <!-- ======= Breadcrumbs Section ======= -->
@@ -82,10 +81,11 @@ $(function(){
 	    $(document).on('click',".deleteBtn", function(){
 	        if(confirm("해당 지역을 관심지역에서 삭제시키시겠습니까?")) {
 	        	var interestId = $(this).attr("id");
+	        	console.log(${userIogin})
 		    	console.log(interestId);
 			    $.ajax({
 			    	type:'DELETE',
-			    	url:'/interest/list/ssafy/'+interestId,
+			    	url:'/interest/list/${userInfo.userId}/'+interestId,
 			    	dataType:"json",
 			    	success:function(data,textStatus){
 		        		var tbodyEl = $("#arealist");
@@ -97,8 +97,8 @@ $(function(){
 		        			var regionCode = data[item].sidoCode +""+ data[item].sigugunCode+""+ data[item].dongCode+"00"; 
 		        			str += "<tr>";
 		        			str += "<td><span id='"+regionCode+"'>"+data[item].areaName+"</span></td>";
-		        			str += "<td><a type=\"button\" class=\"storeBtn btn btn-warning btn-sm\">상권정보</a>&nbsp;";
-		        			str += "<a type=\"button\" class=\"envBtn btn btn-success btn-sm\">환경정보</a>&nbsp;";
+		        			str += "<td><a type=\"button\" id='"+regionCode+"' class=\"storeBtn btn btn-warning btn-sm\">상권정보</a>&nbsp;";
+		        			str += "<a type=\"button\" id='"+regionCode+"' class=\"envBtn btn btn-success btn-sm\">환경정보</a>&nbsp;";
 		        			str += 	"<a type=\"button\" id='"+data[item].interestId+"' class=\"deleteBtn btn-outline-light text-dark btn-sm\">삭제</a></td>";
 		        			str += "</tr>";
 		        			areaAddr.push({address : data[item].areaName});
@@ -118,7 +118,7 @@ $(function(){
 	    $("#showInterestList").click(function(){
 	        $.ajax({
 	        	type:'get',
-	        	url:'/interest/list/'+"ssafy",
+	        	url:'/interest/list/${userInfo.userId}',
 	        	dataType:'json',
 	        	success:function(data,textStatus){
 	        		if(data.length>0){
