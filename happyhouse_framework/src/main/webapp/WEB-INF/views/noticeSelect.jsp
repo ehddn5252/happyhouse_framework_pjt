@@ -2,12 +2,42 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="header.jsp" %>  
-<c:if test="${empty userInfo}">
+<%-- <c:if test="${empty userInfo}">
 	<script>
 	alert("로그인 상태에서 볼 수 있는 페이지입니다.");
 	location.href = "${root}/index.jsp";
 	</script>
-</c:if>
+</c:if> --%>
+
+<script type="text/javascript">
+$(document).ready(function () {
+	
+
+	
+	
+$("#noticeDelete").click(function () {
+	
+    $.ajax({
+    	url: '${root}/notice',
+    	data: {'noticeID': ${nview.noticeID}},
+      	type: 'DELETE',
+      	dataType: 'text',
+      	
+      	success: function (response) {
+      		location.href = "/notice"
+      		console.log(response);
+        /* 	$("#msg").text(response).removeClass('text-dark'); */
+      	},
+      	error: function (error) {
+      		/* request.setAttribute("msg", "글목록 얻기중 에러가 발생했습니다.");
+			request.getRequestDispatcher("/error/error.jsp").forward(request, response); */
+      	}
+	});
+});
+});
+    </script>
+
+
     <!-- End Header -->
     <main id="main">
       <!-- ======= Breadcrumbs Section ======= -->
@@ -47,14 +77,14 @@
             </div>
             <div class="notice-check-btn-box text-center mt-5">
               <button class="modify-nocice-btn before-modify btn btn-primary m-2" type="button">수정</button>
-              <button class="delete-nocice-btn before-modify btn btn-danger m-2" type="button">삭제</button>
+              <button id = "noticeDelete" class="delete-nocice-btn before-modify btn btn-danger m-2" type="button">삭제</button>
 
-              <button class="modify-check-nocice-btn d-none after-modify btn btn-outline-primary" type="button">수정 완료</button>
+              <button id = "noticeUpdate" class="modify-check-nocice-btn d-none after-modify btn btn-outline-primary" type="button">수정 완료</button>
             </div>
             <div class="nav justify-content-end">
               <a
                 class="check-nocice-btn" 
-                 onclick="location.href='NoticeMain2?act=selectAll'"
+                 onclick="location.href='/notice'"
                 type="button"
               >
                 	공지사항 목록 보기

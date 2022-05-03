@@ -13,9 +13,12 @@ $(document).ready(function () {
   // 수정 누르면 수정 활성화
   $(".modify-check-nocice-btn").click(function () {
     if (modify()) {
-      $(".notice-form input,textarea").attr("disabled", true);
-      $(".after-modify").toggleClass("d-none");
-      $(".before-modify").toggleClass("d-none");
+    	console.log("!!!!!!!!!!!")
+    	
+//      $(".notice-form input,textarea").attr("disabled", true);
+//      $(".after-modify").toggleClass("d-none");
+//      $(".before-modify").toggleClass("d-none");
+
     }
   });
 
@@ -24,6 +27,8 @@ $(document).ready(function () {
 	  $(".after-modify").toggleClass("d-none");
       $(".before-modify").toggleClass("d-none");
   });
+  
+  
   $(".delete-nocice-btn").click(function () {
     deleteNotice();
     
@@ -31,42 +36,47 @@ $(document).ready(function () {
 });
 
 function modify() {
-	 
+
   // 문서에서 id 로 input data 가져오기
-  var list = ["title", "content"];
-  var notice = new Object();
+  
   var noticeID = document.getElementById("notice-idx").innerHTML;
   console.log(noticeID+ "ZZZZZZZZ");
   var title = $("#addNotice-title").val();
   var content = $("#addNotice-content").val();
   
-  for (let key of list) {
-    var value = document.querySelector(`#addNotice-${key}`).value;
-    if (!value) {
-      alert("빈칸이 없도록 입력해주세요.");
-      return false;
-    } else {
-      notice[key] = value;
-    }
-  }
-  $.ajax({ 
-	  url:`NoticeMain2`, 
-	  type:"GET", 
-	  data:{
-		  act:"Noticeupdate",
-		  noticeID:noticeID,
-		  noticeTitle:title,
-		  noticeContent:content
-	  }, 
-	  success: function(response){ 
-		  //alert(window.location.pathname);
-		  alert("공지 수정 성공!");
-		  location.href = "NoticeMain2?act=selectAll";
-		  
-	  }
-  })
   
-  return true;
+  
+  
+  
+  console.log(title)
+ let noticeinfo = {
+		'noticeID':noticeID,
+		'noticeTitle': title,
+		'noticeContent': content
+	   };
+	console.log(noticeinfo)
+	console.log("============")
+	
+	
+	
+  $.ajax({
+  	url: '/notice',
+    	type: 'PUT',
+    	dataType: 'text',
+  	data: noticeinfo,
+    	success: function (response) {
+    		
+    		location.href = "/notice";
+      	//$("#msg").text(response.msg).removeClass('text-dark');
+    	},
+    	error: function (error) {
+    		console.log("error입니",error)
+    		/* request.setAttribute("msg", "글목록 얻기중 에러가 발생했습니다.");
+			request.getRequestÏDispatcher("/error/error.jsp").forward(request, response); */
+    	}
+	});
+  
+  return false;
 }
 
 function addNotice() {
