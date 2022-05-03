@@ -13,10 +13,11 @@ $(document).ready(function () {
 $("#registNotice").click(function () {
 	var content = $("#addNotice-content").val();
 	var title = $("#addNotice-title").val();
+	var userID =  $("#userId").val();
 	
 	
 	let noticeinfo = {
-		'userID': 1,
+		'userID': userID,
 		'noticeTitle': title,
 		'noticeContent': content
 	   };

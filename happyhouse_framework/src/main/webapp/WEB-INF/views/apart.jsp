@@ -3,7 +3,9 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5604814141adf4eb08f174929c528f6e&libraries=services"></script>
 <%@ include file="header.jsp"%>
-<!-- <script src="assets/js/hangjungdong.js"></script> -->
+
+<script src="assets/js/hangjungdong.js"></script>
+
 
 <%-- 
  <c:if test="${empty userInfo}">
@@ -60,7 +62,8 @@
 						<iframe id="iframe1" name="iframe1" style="display:none"></iframe>
 					
 						<!--<form action="" method="get"> -->
-						<form name="form" method="get" target="iframe1">
+
+						<form id="findAptBtn" name="form" method="get" target="iframe1">
 
 						<input type="text" id="searchAptName" name="aptName" placeholder="apt">
 						<div class="button">
@@ -120,7 +123,7 @@
 							, "json"
 					);
 				});
-				
+
 				$(document).on("change", "#gugun", function() {
 					$.get(root + "/apart/map/dong"
 							,{gugun: $("#gugun").val()}
@@ -138,6 +141,8 @@
 					$.get(root + "/apart/map/apt"
 							,{dong: $("#dong").val()}
 							,function(data, status){
+
+								$("tbody").empty();
 								$.each(data, function(index, vo) {
 
 									let str = `
