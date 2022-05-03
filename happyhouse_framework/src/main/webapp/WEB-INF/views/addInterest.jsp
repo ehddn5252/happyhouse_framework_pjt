@@ -19,7 +19,7 @@ $(document).on("click", "#registerInterestBtn1", function() {
     $.ajax({
     	url: "/interest/insert",
     
-    	data: JSON.stringify({'userId': <%=session.userInfo.userId%>, 'sidoCode': $("#sido").val(), 'sigugunCode':$("#sigugun").val(),'dongCode':$("#dong").val()}),
+    	data: JSON.stringify({'userId': '<c:out value='${userInfo.userId}'/>', 'sidoCode': $("#sido").val(), 'sigugunCode':$("#sigugun").val(),'dongCode':$("#dong").val()}),
       	contentType:'application/json;charset=utf-8',
     	type: 'post',
       	/* beforeSend : function(xhr)
