@@ -13,7 +13,7 @@
   min-width: 120px;
 }
 
-.register-form input {
+.register-form input:not([type="button"]) {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;

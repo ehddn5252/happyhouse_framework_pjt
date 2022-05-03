@@ -47,7 +47,7 @@
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon"><i class="bx bx-file"></i></div>
-                <h4 class="title"><a href="main?act=store&cmd=mvInterest">관심지역조회</a></h4>
+                <h4 class="title"><a href="/interest/list">관심지역조회</a></h4>
                 <p class="description">
                   	관심 지역을 설정하면 그 지역의 정보를 조회할 수 있습니다.
                 </p>
@@ -60,7 +60,7 @@
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon"><i class="bx bx-tachometer"></i></div>
-                <h4 class="title"><a href="main?act=store&cmd=mvStore">주변탐방 업종 정보 조회</a></h4>
+                <h4 class="title"><a href="/interestinfo/store">주변탐방 업종 정보 조회</a></h4>
                 <p class="description">관련 동네 업종 정보를 지도를 통해 제공합니다.</p>
               </div>
             </div>
@@ -71,7 +71,7 @@
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon"><i class="bx bx-world"></i></div>
-                <h4 class="title"><a href="main?act=env&cmd=mvEnv">주변환경 정보 조회</a></h4>
+                <h4 class="title"><a href="/interestinfo/env">주변환경 정보 조회</a></h4>
                 <p class="description">동네 주변의 환경 정보를 조회할 수 있습니다.</p>
               </div>
             </div>
