@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ include file="header.jsp" %>
-<c:if test="${!empty userInfo}">
+<%-- <c:if test="${!empty userInfo}">
 	<script>
 	alert("로그아웃 상태에서 볼 수 있는 페이지입니다.");
 	location.href = "${root}/index.jsp";
 	</script>
-</c:if>
+</c:if> --%>
 <script type="text/javascript">
         $(document).ready(function () {
+        	//
 			$("#registerBtn").attr("disabled","disabled");
                     		
         	var isId = false;
@@ -21,12 +22,12 @@
         			$("#registerBtn").attr("disabled","disabled");
         		} else {
 	                $.ajax({
-	                	url: '${root}/user',
-	                	data: {'act': 'idcheck', 'ckid': ckid},
+	                	url: '${root}/user/idcheck',
+	                	data: {'ckid': ckid},
 	                  	type: 'GET',
-	                  	dataType: 'text',
+	                  	dataType: 'json',
 	                  	success: function (response) {
-	                    	var cnt = parseInt(response);
+	                    	var cnt = response.idcount;
 	                    	if(cnt == 0) {
 	                    		$("#idresult").text(ckid + "는 사용가능합니다.").removeClass('text-dark').removeClass('text-danger').addClass('text-primary');
 	                    		isId = true;
@@ -41,10 +42,29 @@
         		}
 			});
         	
+        	// 이름 아이디 비밀번호 입력 안하면 
+            /* $("#registerBtn").click(function () {
+                if (!$("#username").val()) {
+                    alert("이름 입력!!!");
+                    return;
+                } else if (!isId) {
+                    alert("아이디 확인!!!");
+                    return;
+                } else if (!$("#userpwd").val()) {
+                    alert("비밀번호 입력!!!");
+                    return;
+                } else if ($("#userpwd").val() != $("#pwdcheck").val()) {
+                    alert("비밀번호 확인!!!");
+                    return;
+                } else {
+                	$("#email").val($("#emailid").val() + "@" + $("#emaildomain").val());
+                    $("#memberform").attr("action", "${root}/user/register").submit();
+                }
+            }); */
         	// 회원가입
-            $("#registerBtn").click(function () {
+            /* $("#registerBtn").click(function () {
                 $("#memberform").attr("action", "${root}/user").submit();
-            });
+            }); */
         });
     </script>
 
@@ -69,39 +89,38 @@
         <div class="registercontainer">
 		    <div class="title">회원가입</div>
 		    <div class="content">
-		      <form action="user" method="post">
-		      	<input type="hidden" name="act" value="register">
+		      <form action="/user/register" method="post">
 		        <div class="user-details">
 		          <div class="input-box">
 		            <span class="details">성함</span>
-		            <input type="text" name="name" placeholder="Enter your name" required>
+		            <input type="text" name="userName" placeholder="Enter your name" required>
 		          </div>
 		          <div class="input-box">
 		            <span class="details">전화번호</span>
-		            <input type="text" name="phonenum" placeholder="Enter your phone number" required>
+		            <input type="text" name="phoneNum" placeholder="Enter your phone number" required>
 		          </div>
 		          <div class="input-box">
 		            <span class="details">이메일</span>
-		            <input type="email" name="email" placeholder="Enter your email" required>
+		            <input type="email" name="userEmail" placeholder="Enter your email" required>
 		          </div>
 		          <div class="input-box">
 		            <span class="details">생일</span>
-		            <input type="date" name="birth" required>
+		            <input type="date" name="userBirth" required>
 		          </div>
 		          <div class="input-box">
 		            <span class="details">아이디</span>
-		            <input id="registId" type="text" name="id" placeholder="Enter your id" required autocomplete="off">
+		            <input id="registId" type="text" name="userId" placeholder="Enter your id" required autocomplete="off">
 		            <div id="idresult" class="mt-1"></div>
 		          </div>
 		          <div class="input-box">
 		            <span class="details">비밀번호</span>
-		            <input type="password" name="password" placeholder="Enter your password" required>
+		            <input type="password" name="userPwd" placeholder="Enter your password" required>
 		          </div>
 		        </div>
 		        <div class="gender-details" >
-		          <input type="radio" name="gender" id="dot-1" value="남">
-		          <input type="radio" name="gender" id="dot-2" value="여">
-		          <input type="radio" name="gender" id="dot-3" value="비밀">
+		          <input type="radio" name="userGender" id="dot-1" value="남">
+		          <input type="radio" name="userGender" id="dot-2" value="여">
+		          <input type="radio" name="userGender" id="dot-3" value="비밀">
 		          <span class="gender-title">성별</span>
 		          <div class="category">
 		            <label for="dot-1">

@@ -5,6 +5,14 @@ package com.ssafy.happyhouse.model;
 
 public class UserDto {
 
+	@Override
+	public String toString() {
+		return "UserDto [userId=" + userId + ", userPwd=" + userPwd + ", userEmail=" + userEmail + ", userName="
+				+ userName + ", userBirth=" + userBirth + ", userGender=" + userGender + ", registDate=" + registDate
+				+ ", manager=" + manager + ", phoneNum=" + phoneNum + "]";
+	}
+
+
 	private String userId;
 	private String userPwd;
 	private String userEmail;
@@ -13,7 +21,7 @@ public class UserDto {
 	private String userGender;
 	private String registDate;
 	private String manager;
-	private String userPhoneNum;
+	private String phoneNum;
 
 	public String getUserGender() {
 		return userGender;
@@ -91,19 +99,14 @@ public class UserDto {
 		this.manager = manager;
 	}
 
-	public String getUserPhoneNum() {
-		return userPhoneNum;
+	public String getPhoneNum() {
+		return phoneNum;
 	}
 	
 	
-	public void setUserPhoneNum(String phoneNum) {
-		this.userPhoneNum = phoneNum;
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
 	}
 
-	@Override
-	public String toString() {
-		return userId + "\t" + userPwd + "\t" + userName + "\t"  + userBirth + "\t" + userGender
-				+ "\t" + userEmail+ "\t" + registDate;
-	}
 
 }

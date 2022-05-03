@@ -15,7 +15,7 @@
         <a href="#services" class="btn-get-started scrollto"><i class="bx bx-chevrons-down"></i></a>
       </div>
     </section>
-    <!-- End Hero -->
+    <!-- End Hero -->p[	1`
 
     <main id="main">
   
@@ -29,12 +29,12 @@
 
           <div class="row">
             <div
-              onclick="location.replace('houseDeal?act=goPage')"
+              onclick="location.replace('/apart')"
               class="company-button col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
             >
               <div class="icon-box" data-aos="fade-up">
                 <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                <h4 class="title"><a href="houseDeal?act=goPage">주택 실거래가 조회</a></h4>
+                <h4 class="title"><a href="/apart">주택 실거래가 조회</a></h4>
                 <p class="description">
                   	원하는 지역을 선택하면 해당 지역의 주택 실거래가 정보를 제공합니다.
                 </p>
@@ -42,12 +42,12 @@
             </div>
 
             <div
-              onclick="location.replace('main?act=store&cmd=mvInterest')"
+              onclick="location.replace('/interest/list')"
               class="company-button col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon"><i class="bx bx-file"></i></div>
-                <h4 class="title"><a href="main?act=store&cmd=mvInterest">관심지역조회</a></h4>
+                <h4 class="title"><a href="/interest/list">관심지역조회</a></h4>
                 <p class="description">
                   	관심 지역을 설정하면 그 지역의 정보를 조회할 수 있습니다.
                 </p>
@@ -55,23 +55,23 @@
             </div>
 
             <div
-              onclick="location.replace('main?act=store&cmd=mvStore')"
+              onclick="location.replace('/interestinfo/store')"
               class="company-button col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
                 <div class="icon"><i class="bx bx-tachometer"></i></div>
-                <h4 class="title"><a href="main?act=store&cmd=mvStore">주변탐방 업종 정보 조회</a></h4>
+                <h4 class="title"><a href="/interestinfo/store">주변탐방 업종 정보 조회</a></h4>
                 <p class="description">관련 동네 업종 정보를 지도를 통해 제공합니다.</p>
               </div>
             </div>
 
             <div
-              onclick="location.replace('main?act=env&cmd=mvEnv')"
+              onclick="location.replace('/interestinfo/env')"
               class="company-button col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0"
             >
               <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
                 <div class="icon"><i class="bx bx-world"></i></div>
-                <h4 class="title"><a href="main?act=env&cmd=mvEnv">주변환경 정보 조회</a></h4>
+                <h4 class="title"><a href="/interestinfo/env">주변환경 정보 조회</a></h4>
                 <p class="description">동네 주변의 환경 정보를 조회할 수 있습니다.</p>
               </div>
             </div>

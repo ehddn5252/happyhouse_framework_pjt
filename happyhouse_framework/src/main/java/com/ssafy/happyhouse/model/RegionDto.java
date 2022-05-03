@@ -1,6 +1,7 @@
 package com.ssafy.happyhouse.model;
 
 public class RegionDto {
+	
 
 	int interestId;
 	String userId;
@@ -9,8 +10,9 @@ public class RegionDto {
 	String dongCode;
 	String areaName;
 
+	
 	public RegionDto() {}
-
+	
 	public RegionDto(String userId, String sidoCode, String sigugunCode, String dongCode, String areaName) {	
 		this.userId = userId;
 		this.sidoCode = sidoCode;
@@ -55,4 +57,6 @@ public class RegionDto {
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
 	}
+
 }
+

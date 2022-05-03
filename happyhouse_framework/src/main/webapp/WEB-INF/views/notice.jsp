@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="header.jsp" %>  
-<c:if test="${empty userInfo}">
+<%-- <c:if test="${empty userInfo}">
 	<script>
 	alert("로그인 상태에서 볼 수 있는 페이지입니다.");
-	location.href = "${root}/index.jsp";
+	location.href = "${root}/";
 	</script>
-</c:if>
+</c:if> --%>
     <!-- End Header -->
     <main id="main">
       <!-- ======= Breadcrumbs Section ======= -->
@@ -45,7 +45,7 @@
                   <c:forEach var="nlist" items="${nlist}">
 				<tr>
 					<td>${nlist.noticeID}</td>
-					<td><a  href="${root}/NoticeMain2?act=view&noticeID=${nlist.noticeID}">${nlist.noticeTitle}</a></td>
+					<td><a  href="${root}/notice/id?noticeID=${nlist.noticeID}">${nlist.noticeTitle}</a></td>
 					<td>${nlist.noticeContent}</td>
 					<td>${nlist.userID}</td>
 					<td>${nlist.noticeDate}</td>				
@@ -61,7 +61,7 @@
               </div>
             </div>
             <div class="col-9" style="float: none; margin: 0 auto">
-              <button onclick="location.href='NoticeMain2?act=NoticeinsertForm'" style="float: right" class="btn btn-primary">
+              <button onclick="location.href='notice/register'" style="float: right" class="btn btn-primary">
                	 등록
               </button>
             </div>

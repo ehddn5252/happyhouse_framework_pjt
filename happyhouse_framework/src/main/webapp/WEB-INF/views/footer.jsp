@@ -28,10 +28,10 @@
             <div class="col-lg-3 mx-4 col-md-6 footer-links">
               <h4>Useful Links</h4>
               <ul class="divided-list list-unstyled text-center">
-                <li><i class="bx bx-chevron-right"></i> <a href="index.jsp">Home</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/">Home</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="index.jsp#services">회사 소개</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="index.jsp#contact">고객센터</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="${root}/NoticeMain2?act=selectAll">공지사항</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="${root}/notice">공지사항</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="sitemap.jsp">사이트맵</a></li>
               </ul>
             </div>
@@ -39,10 +39,10 @@
             <div class="col-lg-3 col-md-6 footer-links">
               <h4>서비스들</h4>
               <ul class="divided-list list-unstyled text-center">
-                <li><i class="bx bx-chevron-right"></i> <a href="findTransaction.jsp">주택 실거래가 조회</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/apart">주택 실거래가 조회</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="registerInterest.jsp">관심 지역 등록</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="main?act=store&cmd=mvStore">주변탐방 업종 정보 조회</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="main?act=env&cmd=mvEnv">주변환경 정보 조회</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/interestinfo/store">주변탐방 업종 정보 조회</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="/interestinfo/env">주변환경 정보 조회</a></li>
                 <li><i class="bx bx-chevron-right"></i> <a href="findHospital.jsp">안심병원 조회</a></li>
               </ul>
             </div>
@@ -71,13 +71,13 @@
     ></a>
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/purecounter/purecounter.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="${root}/assets/vendor/purecounter/purecounter.js"></script>
+    <script src="${root}/assets/vendor/aos/aos.js"></script>
+    <script src="${root}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${root}/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="${root}/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="${root}/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="${root}/assets/vendor/php-email-form/validate.js"></script>
 
 <!--     <script
       type="text/javascript"
@@ -85,15 +85,15 @@
     ></script> -->
     <!-- Template Main JS File -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdf614748efadd63bf7ce73b5ddad4f1&libraries=services"></script>
-    <script src="assets/js/test2.js"></script>
-   <script src="assets/js/store.js"></script>
-    <script src="assets/js/hangjungdong.js"></script>
-    <script src="assets/js/interest.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/myPage.js"></script>
-    <script src="assets/js/notice.js"></script>
-    <script src="assets/js/register.js"></script>
-    <script src="assets/js/registerInterest.js"></script>
-    <script src="assets/js/transaction.js"></script>
+    <script src="${root}/assets/js/test2.js"></script>
+    <script src="${root}/assets/js/store.js"></script>
+    <script src="${root}/assets/js/hangjungdong.js"></script>
+    <script src="${root}/assets/js/interest.js"></script>
+    <script src="${root}/assets/js/main.js"></script>
+    <script src="${root}/assets/js/myPage.js"></script>
+    <script src="${root}/assets/js/notice.js"></script>
+    <script src="${root}/assets/js/register.js"></script>
+    <script src="${root}/assets/js/registerInterest.js"></script>
+    <script src="${root}/assets/js/transaction.js"></script>
   </body>
 </html>

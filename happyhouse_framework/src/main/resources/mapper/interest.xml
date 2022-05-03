@@ -16,4 +16,5 @@
 		select * from userInterest
 		where userId = #{userId}
 	</select>
+
 </mapper>

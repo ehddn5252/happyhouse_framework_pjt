@@ -2,13 +2,46 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="header.jsp" %>  
-<c:if test="${empty userInfo}">
+<%-- <c:if test="${empty userInfo}">
 	<script>
 	alert("로그인 상태에서 볼 수 있는 페이지입니다.");
 	location.href = "${root}/index.jsp";
 	</script>
-</c:if>
-
+</c:if> --%>
+<script type="text/javascript">
+$(document).ready(function () {
+$("#registNotice").click(function () {
+	var content = $("#addNotice-content").val();
+	var title = $("#addNotice-title").val();
+	
+	
+	let noticeinfo = {
+		'userID': 1,
+		'noticeTitle': title,
+		'noticeContent': content
+	   };
+	console.log(noticeinfo)
+	console.log("============")
+	console.log(${root})
+    $.ajax({
+    	url: '${root}/notice',
+      	type: 'POST',
+      	
+      	dataType: 'text',
+    	data: noticeinfo,
+      	success: function (response) {
+      		location.href = "/notice";
+        	//$("#msg").text(response.msg).removeClass('text-dark');
+      	},
+      	error: function (error) {
+      		console.log("error입니",error)
+      		/* request.setAttribute("msg", "글목록 얻기중 에러가 발생했습니다.");
+			request.getRequestÏDispatcher("/error/error.jsp").forward(request, response); */
+      	}
+	});
+});
+});
+    </script> 
     <!-- End Header -->
     <main id="main">
       <!-- ======= Breadcrumbs Section ======= -->
@@ -34,7 +67,7 @@
               <input
                 id="addNotice-title"
                 class="form-control"
-                name="title"
+                name="noticeTitle"
                 type="text"
                 placeholder="제목"
               />
@@ -44,12 +77,12 @@
               <textarea
                 class="form-control"
                 id="addNotice-content"
-                name="content"
+                name="noticeContent"
                 rows="10"
               ></textarea>
             </div>
             <div class="notice-check-btn-box mt-3" style="float: right; margin: 0 auto">
-              <button class="btn btn-primary" onclick="addNotice()" type="button">공지 등록</button>
+              <input type="button" id= "registNotice" class="registNotice" value="공지 등록">
             </div>
           </form>
         </div>
