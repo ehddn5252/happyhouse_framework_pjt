@@ -159,15 +159,7 @@
             <li><a class="nav-link scrollto" href="index.jsp#services">서비스 소개</a></li>
             <li><a class="nav-link scrollto loginOnly" href="${root}/notice">공지사항</a></li>
             <!-- <li><a class="nav-link scrollto loginOnly" href="findTransaction.jsp">주택실거래가조회</a></li> -->
-            <li class="dropdown loginOnly">
-              <a href="/apart">
-                <span>실거래가 조회</span> <i class="bi bi-chevron-down"></i
-              ></a>
-              <ul>
-                <li><a href="/apart">동별 주택 실거래가 조회</a></li>
-                <li><a href="/apart">아파트별 주택 실거래가 조회</a></li>
-                            </ul>
-            </li>
+            <li><a class="nav-link scrollto loginOnly" href="/apart">실거래가 조회</a></li>
             <!-- 로그인 안 한 상태 inactive -->
             <li class="dropdown loginOnly">
               <a href="/interest/list"

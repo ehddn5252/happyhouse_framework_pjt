@@ -21,7 +21,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
 	
 	@Autowired
 	private ConfirmInterceptor confirm;
-	private final List<String> patterns = Arrays.asList("/guestbook/**","/interest/**","/interestinfo/**","/user/userinfo","/user/modifypwd","/apart/**");
+	private final List<String> patterns = Arrays.asList("/notice/**","/interest/**","/interestinfo/**","/user/userinfo","/user/modifypwd","/apart/**");
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
