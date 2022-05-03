@@ -135,7 +135,7 @@
             <p>
               HappyHouse의 편리한 서비스들을 제공받기를 원하시면 지금 바로 회원가입을 진행하세요.
             </p>
-            <a class="cta-btn" href="user?act=mvregister">회원가입</a>
+            <a class="cta-btn" href="/user/register/">회원가입</a>
           </div>
         </div>
       </section>
@@ -144,7 +144,7 @@
           <div class="text-center">
             <h3>실거래가 정보 조회</h3>
             <p>지금 바로 HappyHouse의 편리한 서비스를 제공받아보세요.</p>
-            <a class="cta-btn" href="#">실거래가 정보 조회하기</a>
+            <a class="cta-btn" href="/apart">실거래가 정보 조회하기</a>
           </div>
         </div>
       </section>
