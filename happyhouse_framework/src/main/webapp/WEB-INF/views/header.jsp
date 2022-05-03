@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<c:if test="${!empty userInfo}">
+	<c:set var="userId" value="${userInfo.userId}"></c:set>
+</c:if>
 
 <!DOCTYPE html>
 <html>
@@ -152,22 +155,22 @@
 
         <nav id="navbar" class="navbar order-last order-lg-0">
           <ul>
-            <li><a class="nav-link scrollto" href="index.jsp">메인화면</a></li>
+            <li><a class="nav-link scrollto" href="/">메인화면</a></li>
             <li><a class="nav-link scrollto" href="index.jsp#services">서비스 소개</a></li>
             <li><a class="nav-link scrollto loginOnly" href="${root}/notice">공지사항</a></li>
             <!-- <li><a class="nav-link scrollto loginOnly" href="findTransaction.jsp">주택실거래가조회</a></li> -->
             <li class="dropdown loginOnly">
-              <a href="houseDeal?act=goPage">
+              <a href="/apart">
                 <span>실거래가 조회</span> <i class="bi bi-chevron-down"></i
               ></a>
               <ul>
-                <li><a href="houseDeal?act=goPage">동별 주택 실거래가 조회</a></li>
-                <li><a href="houseDeal?act=goPageApt">아파트별 주택 실거래가 조회</a></li>
+                <li><a href="/apart">동별 주택 실거래가 조회</a></li>
+                <li><a href="/apart">아파트별 주택 실거래가 조회</a></li>
                             </ul>
             </li>
             <!-- 로그인 안 한 상태 inactive -->
             <li class="dropdown loginOnly">
-              <a href="main?act=store&cmd=mvInterest"
+              <a href="/interest/list"
                 ><span>관심지역조회</span> <i class="bi bi-chevron-down"></i
               ></a>
               <ul>

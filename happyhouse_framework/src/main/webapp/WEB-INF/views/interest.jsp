@@ -3,7 +3,7 @@
 
 <%@ include file="header.jsp"%>
 
-<c:if test="${!empty userInfo}">
+<c:if test="${empty userInfo}">
    <script>
    alert("로그인 상태에서 볼 수 있는 페이지입니다.");
    location.href = "${root}/index.jsp";

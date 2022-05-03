@@ -87,7 +87,7 @@
 	let colorArr = ['table-primary','table-success','table-danger'];
 	$(document).ready(function(){	
 		
-		$.get("/map/sido"
+		$.get("/apart/map/sido"
 			,function(data, status){
 				$.each(data, function(index, vo) {
 					$("#sido").append("<option value='"+vo.sidoCode+"'>"+vo.sidoName+"</option>");
@@ -97,7 +97,7 @@
 		);
 	});
 	$(document).on("change", "#sido", function() {
-		$.get("/map/gugun"
+		$.get("/apart/map/gugun"
 				,{sido: $("#sido").val()}
 				,function(data, status){
 					$("#gugun").empty();
@@ -110,7 +110,7 @@
 		);
 	});
 	$(document).on("change", "#gugun", function() {
-		$.get("/map/dong"
+		$.get("/apart/map/dong"
 				,{gugun: $("#gugun").val()}
 				,function(data, status){
 					$("#dong").empty();
@@ -122,27 +122,7 @@
 				, "json"
 		);
 	});
-	$(document).on("change", "#dong", function() {
-		$.get("/map/apt"
-				,{dong: $("#dong").val()}
-				,function(data, status){
-					$("tbody").empty();
-					$.each(data, function(index, vo) {
-						let str = `
-							<tr class="${colorArr[index%3]}">
-							<td>${vo.aptCode}</td>
-							<td>${vo.aptName}</td>
-							<td>${vo.sidoName} ${vo.gugunName} ${vo.dongName} ${vo.jibun}</td>
-							<td>${vo.buildYear}</td>
-							<td>${vo.recentPrice}</td>
-						`;
-						$("tbody").append(str);
-					});
-					//displayMarkers(data);
-				}
-				, "json"
-		);
-	});
+
 	</script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=fdf614748efadd63bf7ce73b5ddad4f1&libraries=services"></script>
 	<script>
