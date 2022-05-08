@@ -12,4 +12,6 @@ public interface HouseMapService {
 	List<HouseInfoDto> getDongInGugun(String gugun) throws Exception;
 	List<HouseInfoDto> getAptInDong(String dong) throws Exception;
     List<HouseInfoDto> getAptInName(String aptName, String dong) throws Exception;
+	List<HouseInfoDto> getRecommendList(String dong, String price, String houseSize) throws Exception;
+
 }
