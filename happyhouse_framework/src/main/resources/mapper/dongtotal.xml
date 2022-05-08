@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.HouseMapMapper">
+
+	
+	
+	<select id="getDongList" parameterType="string" resultType="houseInfoDto">
+	
+		SELECT info.dongName, deal.dealAmount as recentPrice, info.lng as lng, info.lat as lat 
+		FROM (SELECT * FROM houseinfo as info WHERE LEFT(info.dongCode,5) = #{gugun}) as info
+		LEFT JOIN housedeal as deal ON info.aptCode = deal.aptCode 
+	
+		
+	</select>
+	
+	<select id = "getLngLat" parameterType="string" resultType="houseInfoDto">
+		select dongName, lng, lat
+		from baseaddress
+		where dongName = #{dongName}
+	
+	
+	</select>
+	
+	
+
+</mapper>
