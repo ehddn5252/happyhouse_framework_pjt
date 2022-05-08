@@ -68,10 +68,6 @@
 						<!--<form action="" method="get"> -->
 						
 						<form name="form" method="get" target="iframe1">
-						<div class="col">
-						<label class="mr-2 ml-3 mt-3" for="dong"> 아파트 명: </label>
-						<input type="text" id="searchAptName" class="form-control" style="border: 1px solid #964B00;" name="aptName" placeholder="apt">
-						</div>
 						
 						<hr>
 							<div class="condition-container col-sm-11 flex-column" style="margin:auto">
@@ -126,7 +122,7 @@
 						
 						<div class="col">
 						<div class="button">
-		          		<input type="submit" id="findAptBtn" value="아파트 명으로 검색">
+		          		<input type="submit" id="findAptBtn" value="검색">
 		        		</div>
 		        		</div>
 		        			<!-- 
@@ -272,7 +268,7 @@
 				});
 				
 				
-				$(document).on("change", "#dong", function() {
+				$(document).on("click", "#findAptBtn", function() {
 					// 건물과 이에 해당하는 거리 정보 저장한 객체 생성
 					var arr = new Array();
 					
@@ -341,34 +337,6 @@
 				       	});
 					console.log("로딩 완료");
 				});
-					
-				$(document).on("click","#findAptBtn",function () {
-		        	// 아파트
-        			var apt_val = $("#searchAptName").val();
-	                
-					$.get(root + "/apart/map/aptName"
-							,{aptName: apt_val,
-							  dong: $("#dong").val()}
-							,function(data, status){
-								$("tbody").empty();
-								$.each(data, function(index, vo) {
-									
-									let str = `
-										<tr class="${colorArr[index%3]}">
-										<td>${"${vo.aptCode}"}</td>
-										<td>${"${vo.aptName}"}</td>
-										<td>${"${vo.sidoName} ${vo.gugunName} ${vo.dongName} ${vo.jibun}"}</td>
-										<td>${"${vo.buildYear}"}</td>
-										<td>${"${vo.recentPrice}"}</td>
-									`;
-									$("tbody").append(str);
-								});
-								displayMarkers(data);
-							}
-							, "json"
-					);
-	        	});
-
 
 				</script>
 			</div>

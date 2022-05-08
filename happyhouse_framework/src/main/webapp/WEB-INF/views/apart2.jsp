@@ -37,7 +37,7 @@
 	
 		<section id="index_section">
 		<div class="row">
-			<div class="card col-sm-6 mt-1" style="min-height: 850px;">
+			<div class="card col-sm-11 mt-1 ml-5" style="min-height: 850px;">
 				<div class="card-body">
 				<div class="row">
 					<div class="row form-group form-inline justify-content-center">
@@ -53,12 +53,12 @@
 							<option value="0">선택</option>
 						</select>
 						</div>
-						<div class="col">
+						<!-- <div class="col">
 						<label class="mr-2 ml-3" for="dong">읍면동 : </label>
 						<select class="form-control" id="dong">
 							<option value="0">선택</option>
 						</select>
-						</div>
+						</div> -->
 						</div>
 						
 						<div class= "row">
@@ -68,13 +68,13 @@
 						<!--<form action="" method="get"> -->
 						
 						<form id="findAptBtn" name="form" method="get" target="iframe1">
-						<div class="col">
+						<!-- <div class="col">
 						<label class="mr-2 ml-3 mt-3" for="dong"> 아파트 명: </label>
 						<input type="text" id="searchAptName" class="form-control" style="border: 1px solid #964B00;" name="aptName" placeholder="apt">
-						</div>
+						</div> -->
 						<div class="col">
 						<div class="button">
-		          		<input type="submit" id="findAptBtn" value="아파트 명으로 검색">
+		          		<input type="submit" id="findAptBtn" value="지역별 시세 조회">
 		        		</div>
 		        		</div>
 						</form>
@@ -83,7 +83,10 @@
 						</div>
 						<!-- <button type="button" id="aptSearchBtn">검색</button> -->
 					</div>
-					<table class="table mt-2">
+					<div>
+						<div style="width:100% height:100%" id="map"></div>
+					</div>
+					<!-- <table class="table mt-2">
 						<colgroup>
 							<col width="100">
 							<col width="150">
@@ -102,7 +105,7 @@
 							</tr>
 						</thead>
 						<tbody id="searchResult"></tbody>
-					</table>
+					</table> -->
 				
 				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5604814141adf4eb08f174929c528f6e"></script>
 				<script type="text/javascript">
@@ -150,7 +153,7 @@
 				
 				
 				/* donglist 생성 - 민지 */
-				$(document).on("change", "#gugun", function() {
+				$(document).on("click", "#findAptBtn", function() {
 					$.get(root + "/apart/map/apt/avg"
 							,{gugun: $("#gugun").val()}
 							,function(data, status){
@@ -161,7 +164,7 @@
 					);
 				});
 				
-				$(document).on("change", "#dong", function() {
+				/* $(document).on("change", "#dong", function() {
 					$.get(root + "/apart/map/apt"
 							,{dong: $("#dong").val()}
 							,function(data, status){
@@ -214,16 +217,16 @@
 							, "json"
 					);
 	        	});
-
+ */
 
 				</script>
 			</div>
 		</div>
 		<div class="col-sm-6" >
-			<div style="width:90% height:80%" id="map" ;"></div>
+			<div style="width:90% height:80%" id="map"></div>
 		</div>
 		</div>
-		<script type="text/javascript" src="js/map2.js"></script>
+		<script type="text/javascript" src="/js/map2.js"></script>
 	</section>
 	<!-- End Portfolio Details Section -->
 </main>

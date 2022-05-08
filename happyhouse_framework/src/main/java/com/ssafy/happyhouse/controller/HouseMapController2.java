@@ -36,4 +36,9 @@ public class HouseMapController2 {
 	public String moveRecommand() throws Exception {
 		return "apartRecommend";
 	}
+	
+	@GetMapping("/apart/avg")
+	public String moveAvg() throws Exception{
+		return "apart2";
+	}
 }

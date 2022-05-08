@@ -58,7 +58,7 @@ function displayMarkers(places) {
 		// 지도에 표시할 원을 생성합니다
 		var circle = new kakao.maps.Circle({
 		    center : placePosition,  // 원의 중심좌표 입니다 
-		    radius: 500, // 미터 단위의 원의 반지름입니다 
+		    radius: 300, // 미터 단위의 원의 반지름입니다 
 		    strokeWeight: 5, // 선의 두께입니다 
 		    strokeColor: '#75B8FA', // 선의 색깔입니다
 		    strokeOpacity: 1, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
@@ -109,7 +109,7 @@ function displayMarkers(places) {
 
 	// 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 	map.setBounds(bounds);
-	map.setLevel(7);
+	map.setLevel(5);
 }
 
 
@@ -136,7 +136,7 @@ function addMarker(position, idx, title) {
 		level: 2,
 	});
 
-	marker.setMap(map); // 지도 위에 마커를 표출합니다
+	marker.setMap(null); // 지도 위에 마커를 표출합니다
 	markers.push(marker); // 배열에 생성된 마커를 추가합니다
 
 	return marker;
@@ -144,15 +144,14 @@ function addMarker(position, idx, title) {
 
 // 지도 위에 표시되고 있는 마커를 모두 제거합니다
 function removeMarker() {
-	   for (var i = 0; i < markers.length; i++) {
-	      markers[i].setMap(null);
+	   for (var i = 0; i < circles.length; i++) {
+	      //markers[i].setMap(null);
 	      circles[i].setMap(null);
 	      overlays[i].setMap(null);
 	   }
-	   markers = [];
+	   //markers = [];
 	   circles = [];
 	   overlays = [];
-	  // overlays = [];
 	}
 //검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, place) {

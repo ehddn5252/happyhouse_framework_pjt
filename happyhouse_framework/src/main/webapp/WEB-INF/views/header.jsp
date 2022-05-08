@@ -159,19 +159,23 @@
             <li><a class="nav-link scrollto" href="/">메인화면</a></li>
             <li><a class="nav-link scrollto loginOnly" href="${root}/notice">공지사항</a></li>
             <!-- <li><a class="nav-link scrollto loginOnly" href="findTransaction.jsp">주택실거래가조회</a></li> -->
-            <li><a class="nav-link scrollto loginOnly" href="/apart">실거래가 조회</a></li>
-            <li><a class="nav-link scrollto loginOnly" href="/service/best">선호 지역 주변 실거래가 조회</a></li>
             <!-- 로그인 안 한 상태 inactive -->
-
             <li class="dropdown loginOnly">
               <a href="/apart"
                 ><span>실거래가 조회</span> <i class="bi bi-chevron-down"></i
               ></a>
               <ul>
                 <li><a href="/apart">실거래가 조회</a></li>
+                <li><a href="/sj">편의 시설 반경 내 아파트 조회</a></li>
                 <li><a href="/apart/recommend">동 내 아파트 추천</a></li>
+                <li><a href="/apart/avg">동별 평균 시세 조회</a></li>
+                <li><a href="/service/best">선호 지역 실거래가 조회</a></li>
+                
               </ul>
             </li>
+            
+			<li class="dropdown loginOnly">
+              <a href="/interest/list"><span>관심 지역 조회</span> <i class="bi bi-chevron-down"></i></a>
               <ul>
                 <li><a href="/interest/list">관심 지역 목록</a></li>
                 <li><a href="/interest/register">관심 지역 등록</a></li>
