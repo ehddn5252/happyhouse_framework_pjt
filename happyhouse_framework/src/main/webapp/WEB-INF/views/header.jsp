@@ -162,10 +162,16 @@
             <li><a class="nav-link scrollto loginOnly" href="/apart">실거래가 조회</a></li>
             <li><a class="nav-link scrollto loginOnly" href="/service/best">선호 지역 주변 실거래가 조회</a></li>
             <!-- 로그인 안 한 상태 inactive -->
+
             <li class="dropdown loginOnly">
-              <a href="/interest/list"
-                ><span>관심지역조회</span> <i class="bi bi-chevron-down"></i
+              <a href="/apart"
+                ><span>실거래가 조회</span> <i class="bi bi-chevron-down"></i
               ></a>
+              <ul>
+                <li><a href="/apart">실거래가 조회</a></li>
+                <li><a href="/apart/recommend">동 내 아파트 추천</a></li>
+              </ul>
+            </li>
               <ul>
                 <li><a href="/interest/list">관심 지역 목록</a></li>
                 <li><a href="/interest/register">관심 지역 등록</a></li>
