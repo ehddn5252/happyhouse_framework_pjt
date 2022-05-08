@@ -4,9 +4,6 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5604814141adf4eb08f174929c528f6e&libraries=services"></script>
 <%@ include file="header.jsp"%>
 
-<script src="assets/js/hangjungdong.js"></script>
-
-
 <%-- 
  <c:if test="${empty userInfo}">
    <script>
@@ -22,10 +19,10 @@
 	<section class="breadcrumbs">
 		<div class="container">
 			<div class="d-flex justify-content-between align-items-center">
-				<h2>실거래가 조회</h2>
+				<h2>가격과 건축년도에 따른 실거래가 조회</h2>
 				<ol>
 					<li><a href="index.jsp">Home</a></li>
-					<li>실거래가 조회</li>
+					<li>가격과 건축년도에 따른 실거래가 조회</li>
 				</ol>
 			</div>
 		</div>
@@ -69,12 +66,14 @@
 						
 						<form id="findAptBtn" name="form" method="get" target="iframe1">
 						<div class="col">
-						<label class="mr-2 ml-3 mt-3" for="dong"> 아파트 명: </label>
-						<input type="text" id="searchAptName" class="form-control" style="border: 1px solid #964B00;" name="aptName" placeholder="apt">
+						<label class="mr-2 ml-3 mt-3" for="dong"> 가격: </label>
+						<input type="text" id="searchAptPrice" class="form-control" style="border: 1px solid #964B00;" name="aptName" placeholder="apt">
+						<label class="mr-2 ml-3 mt-3" for="dong"> 건축연도: </label>
+						<input type="text" id="searchBuildYear" class="form-control" style="border: 1px solid #964B00;" name="aptName" placeholder="apt">
 						</div>
 						<div class="col">
 						<div class="button">
-		          		<input type="submit" id="findAptBtn" value="아파트 명으로 검색">
+		          		<input type="submit" id="recommendAptBtn" value="조회하기">
 		        		</div>
 		        		</div>
 						</form>
@@ -111,7 +110,7 @@
 
 				let colorArr = ['table-primary','table-success','table-danger'];
 				$(document).ready(function(){			
-					$.get(root + "/apart/map/sido"
+					$.get("/apart/map/sido"
 						,function(data, status){
 							$.each(data, function(index, vo) {
 								$("#sido").append("<option value='"+vo.sidoCode+"'>"+vo.sidoName+"</option>");
@@ -121,7 +120,7 @@
 					);
 				});
 				$(document).on("change", "#sido", function() {
-					$.get(root + "/apart/map/gugun"
+					$.get("/apart/map/gugun"
 							,{sido: $("#sido").val()}
 							,function(data, status){
 								$("#gugun").empty();
@@ -135,7 +134,7 @@
 				});
 
 				$(document).on("change", "#gugun", function() {
-					$.get(root + "/apart/map/dong"
+					$.get("/apart/map/dong"
 							,{gugun: $("#gugun").val()}
 							,function(data, status){
 								$("#dong").empty();
@@ -148,7 +147,7 @@
 					);
 				});
 				$(document).on("change", "#dong", function() {
-					$.get(root + "/apart/map/apt"
+					$.get("/apart/map/apt"
 							,{dong: $("#dong").val()}
 							,function(data, status){
 
@@ -172,16 +171,20 @@
 					);
 				});
 				
-				$(document).on("click","#findAptBtn",function () {
+				$(document).on("click","#recommendAptBtn",function () {
 		        	// 아파트
         			console.log("==============")
-        			var apt_val = $("#searchAptName").val();
-	                console.log(apt_val);
+        			var aptPrice = $("#searchAptPrice").val();
+        			var aptBuildyear = $("#searchBuildYear").val();
+	                console.log(aptPrice);
 	                
-					$.get(root + "/apart/map/aptName"
-							,{aptName: apt_val,
-							  dong: $("#dong").val()}
+					$.get("/apart/map/apt/recommend"
+							,{dong: $("#dong").val(),
+							price:aptPrice,
+							buildyear:aptBuildyear,
+					}
 							,function(data, status){
+								console.log(data);
 								$("tbody").empty();
 								$.each(data, function(index, vo) {
 									
@@ -206,10 +209,10 @@
 			</div>
 		</div>
 		<div class="col-sm-6" >
-			<div style="width:90% height:80%" id='map'></div>
+			<div style="width:90% height:80%" id="map"></div>
 		</div>
 		</div>
-		<script type="text/javascript" src="js/map.js"></script>
+		<script type="text/javascript" src="/js/map.js"></script>
 	</section>
 	<!-- End Portfolio Details Section -->
 </main>

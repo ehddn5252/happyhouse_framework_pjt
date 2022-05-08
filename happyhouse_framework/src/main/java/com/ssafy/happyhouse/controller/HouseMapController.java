@@ -62,5 +62,10 @@ public class HouseMapController {
 		
 		return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getAptInName(aptName, dong), HttpStatus.OK);
 	}
+
+	@GetMapping("/apt/recommend")
+	public ResponseEntity<List<HouseInfoDto>> aptRecommend(@RequestParam("dong") String dong,@RequestParam("price") String price,@RequestParam("buildyear") String buildyear) throws Exception {
+		return new ResponseEntity<List<HouseInfoDto>>(haHouseMapService.getRecommendList(dong, price, buildyear), HttpStatus.OK);
+	}
 	
 }

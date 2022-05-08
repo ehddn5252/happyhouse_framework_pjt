@@ -31,4 +31,9 @@ public class HouseMapController2 {
 	public String apart_sj() throws Exception {
 		return "apart_sj2";
 	}
+
+	@GetMapping("/apart/recommend")
+	public String moveRecommand() throws Exception {
+		return "apartRecommend";
+	}
 }
