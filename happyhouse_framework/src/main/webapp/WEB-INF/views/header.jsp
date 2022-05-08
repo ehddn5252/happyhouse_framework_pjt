@@ -159,6 +159,7 @@
             <li><a class="nav-link scrollto loginOnly" href="${root}/notice">공지사항</a></li>
             <!-- <li><a class="nav-link scrollto loginOnly" href="findTransaction.jsp">주택실거래가조회</a></li> -->
             <li><a class="nav-link scrollto loginOnly" href="/apart">실거래가 조회</a></li>
+            <li><a class="nav-link scrollto loginOnly" href="/service/best">선호 지역 주변 실거래가 조회</a></li>
             <!-- 로그인 안 한 상태 inactive -->
             <li class="dropdown loginOnly">
               <a href="/interest/list"
