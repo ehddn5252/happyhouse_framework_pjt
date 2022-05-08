@@ -43,6 +43,7 @@
     <link href="${root}/assets/css/registerInterest.css" rel="stylesheet" />
     <link href="${root}/assets/css/style.css" rel="stylesheet" />
     <link href="${root}/assets/css/transaction.css" rel="stylesheet" />
+    <link href="${root}/assets/css/addAptCondition.css" rel="stylesheet" />
 
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -214,7 +215,7 @@
                 <input id="userPwd" name="userPwd" type="password" />
                 <span data-placeholder="Password"></span>
               </div>
-              <div class="form-group form-check text-right">
+              <div class="form-group text-right">
                   <label class="form-check-label">
                       <input class="form-check-input" type="checkbox" id="idsave" name="idsave" value="saveok"${idck}> 아이디저장
                   </label>

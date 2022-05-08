@@ -26,7 +26,7 @@
 
 #map {
   width: 500px;
-  width: calc(60%);
+  width: calc(90%);
   height: 500px;
   left: 30px;
   position: relative;
@@ -36,4 +36,17 @@
   content: " *";
   color: red;
   margin-right: 5px;
+}
+
+.form-distance{
+	width: 100px;
+}
+
+.distance-input-box{
+	/* color:#86a3d7; */
+	margin-left: 10px;
+}
+
+.form-check-label {
+	font-weight: bold;
 }

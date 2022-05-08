@@ -200,11 +200,11 @@ select {
   outline: 0 none;
   margin: 4px 1px;
 }
-select option {
+/* select option {
   background: black;
   color: #fff;
   padding: 3px 0;
-}
+} */
 
 .text-input {
   width: 150px;

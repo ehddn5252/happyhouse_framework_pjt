@@ -26,4 +26,9 @@ public class HouseMapController2 {
 	public String moveApart() throws Exception {
 		return "apart";
 	}
+	
+	@GetMapping("/sj")
+	public String apart_sj() throws Exception {
+		return "apart_sj2";
+	}
 }

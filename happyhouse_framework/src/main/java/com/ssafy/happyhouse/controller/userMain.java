@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ import com.ssafy.happyhouse.model.service.UserService;
 
 @Controller
 @RequestMapping("/user")
+@CrossOrigin("*")
 public class userMain  {
 	
 	private static final Logger logger = LoggerFactory.getLogger(userMain.class);
@@ -153,5 +155,12 @@ public class userMain  {
 		return json.toString();
 	}
 	
+	
+	
+	// 알고리즘 프로젝트 추가 
+	@GetMapping("/sj")
+	public String sj() throws Exception {
+		return "apart_sj";
+	}
 
 }
