@@ -22,10 +22,11 @@
 	<section class="breadcrumbs">
 		<div class="container">
 			<div class="d-flex justify-content-between align-items-center">
-				<h2>실거래가 조회</h2>
+				<h2>편의 시설 반경 내 아파트 조회</h2>
 				<ol>
 					<li><a href="index.jsp">Home</a></li>
 					<li>실거래가 조회</li>
+					<li>편의 시설 반경 내 아파트 조회</li>
 				</ol>
 			</div>
 		</div>
@@ -312,22 +313,24 @@
 									
 									aroundStr="";
 									/* 조건에 맞는지 확인하고 맞으면 해당 리스트 출력&아니면 패스 */
-									if (!checkCondition(vo,arr)) return false;
- 									
-									let str = `
-										<tr class="${colorArr[index%3]}">
-										<td>${"${vo.aptCode}"}</td>
-										<td> ${"${vo.aptName}"}</td>
-										<td>${"${vo.sidoName} ${vo.gugunName} ${vo.dongName} ${vo.jibun}"}</td>
-										<td>${"${vo.buildYear}"}</td>
-										<td>${"${vo.recentPrice}"}</td>
-									`;
-									if (arr.length!=0) {
-										str += `<td>${"${aroundStr}"}</td>`;
+									if (checkCondition(vo,arr)) {
+										let str = `
+											<tr class="${colorArr[index%3]}">
+											<td>${"${vo.aptCode}"}</td>
+											<td> ${"${vo.aptName}"}</td>
+											<td>${"${vo.sidoName} ${vo.gugunName} ${vo.dongName} ${vo.jibun}"}</td>
+											<td>${"${vo.buildYear}"}</td>
+											<td>${"${vo.recentPrice}"}</td>
+										`;
+										if (arr.length!=0) {
+											str += `<td>${"${aroundStr}"}</td>`;
+										}
+						
+										$("tbody").append(str);
+										cdtFitData.push(vo);
+										
 									}
-					
-									$("tbody").append(str);
-									cdtFitData.push(vo);
+ 									
 								});
 								displayMarkers(cdtFitData);
 				          	},
