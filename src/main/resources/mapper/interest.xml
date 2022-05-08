@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.happyhouse.model.mapper.InterestMapMapper">
+
+	<insert id="insertInterest" parameterType="RegionDto">
+		insert into userInterest(userId, sidoCode, sigugunCode,dongCode,areaName) values (#{userId}, #{sidoCode},#{sigugunCode}, #{dongCode}, #{areaName})
+	</insert>
+	
+	
+	<delete id="deleteInterest" parameterType="string">
+		delete from userInterest where interestId = #{interestId}
+	</delete>
+	
+	<select id="searchByUserID" parameterType="string" resultType="List">
+		select * from userInterest
+		where userId = #{userId}
+	</select>
+</mapper>
