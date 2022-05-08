@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,23 @@ public class HouseMapServiceImpl implements HouseMapService {
 	public List<HouseInfoDto> getAptInName(String aptName, String dong) throws Exception {
 		return houseMapMapper.getAptInName(aptName, dong);
 	}
+	
+//	------민지 추가 ----------
+	@Override
+	public List<HouseInfoDto> getDongList(String gugun) throws SQLException {
+		
+		return houseMapMapper.getDongList(gugun);
+	}
+
+	@Override
+	public List<HouseInfoDto> getLngLat(String dongName) throws SQLException {
+		// TODO Auto-generated method stub
+		return houseMapMapper.getLngLat(dongName);
+	}
+	
+//	------------------------
+	
+	
 
 	
 	@Override
