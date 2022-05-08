@@ -2,6 +2,7 @@ $(document).ready(function () {
 	
 	/** 지도에 표시할 marker, infowindow 배열 **/
 	var markers = [];
+	var markers2 = [];
 	var infowindows=[];
 	
 	/** 지도 생성, 띄우기 **/
@@ -51,7 +52,12 @@ $(document).ready(function () {
 			        title : result[0].address.address_name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
 			        image : markerImage
 			    }));
-	            
+			    
+			    markers2.push(new kakao.maps.Marker({
+					position: new kakao.maps.LatLng(latlng.getLat(),latlng.getLng()), // 마커를 표시할 위치
+					title : result[0].address.address_name, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+					image : markerImage
+				}));
 	            
 			    // 인포윈도우
 			    var iwContent = '<div style="font-size: 14px;">'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -251,7 +257,7 @@ $(document).ready(function () {
         		
 	    	}
 	    })
-	    mapMarkByLatlng(markers,rsMap);
+	    mapMarkByLatlng(markers2,rsMap);
 	    mapInfoByLatlng(infowindows,markers,rsMap);
 	    
 	});
