@@ -50,7 +50,7 @@
 		</div>
 		
 		<div class="row">
-			<div id="map" class="col-sm-8 my-5"></div>
+			<div id="map" class="col-sm-8 my-5" style="width:600px;"></div>
 			<div class="col-sm-4" style="margin-left:auto;">
 				<p class="apart_list_title my-5">
 					선호 지역
